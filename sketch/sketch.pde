@@ -1,14 +1,15 @@
-String testText = "The quick brown fox jumps over the lazy dog.";
+String testText = "The quick brown fox\njumps over the lazy dog.";
 
-SVGText svgText;
+PlotterFont font;
 
 void setup() {
 	size(1440, 800);
-	svgText = new SVGText("fonts/samaritan/", 20);
+	font = new PlotterFont("fonts/samaritan/", 20);
 	noFill();
 }
 
 void draw() {
 	background(255);
-	svgText.draw(testText, 10, 10);
+	strokeWeight(2);
+	font.drawText(testText, 10, 10);
 }

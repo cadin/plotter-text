@@ -1,5 +1,7 @@
 {
+    "name": "Astro Town",
     "defaultSize": 60,
+    "lineHeight": 90,
     "singleCase": true,
     "kerningPairs": {
         "aa": -10
