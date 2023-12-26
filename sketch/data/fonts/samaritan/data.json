@@ -7,6 +7,9 @@
     "chars": {
         "a": {
             "filename": "char-A.svg"
+        },
+        "b": {
+            "filename": "char-B.svg"
         }
     }
 }
