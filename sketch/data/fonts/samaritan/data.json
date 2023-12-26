@@ -1,0 +1,12 @@
+{
+    "defaultSize": 60,
+    "singleCase": true,
+    "kerningPairs": {
+        "aa": -10
+    },
+    "chars": {
+        "a": {
+            "filename": "char-A.svg"
+        }
+    }
+}
