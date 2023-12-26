@@ -10,6 +10,134 @@
         },
         "b": {
             "filename": "char-B.svg"
+        },
+        "c": {
+            "filename": "char-C.svg"
+        },
+        "d": {
+            "filename": "char-D.svg"
+        },
+        "e": {
+            "filename": "char-E.svg"
+        },
+        "f": {
+            "filename": "char-F.svg"
+        },
+        "g": {
+            "filename": "char-G.svg"
+        },
+        "h": {
+            "filename": "char-H.svg"
+        },
+        "i": {
+            "filename": "char-I.svg"
+        },
+        "j": {
+            "filename": "char-J.svg"
+        },
+        "k": {
+            "filename": "char-K.svg"
+        },
+        "l": {
+            "filename": "char-L.svg"
+        },
+        "m": {
+            "filename": "char-M.svg"
+        },
+        "n": {
+            "filename": "char-N.svg"
+        },
+        "o": {
+            "filename": "char-O.svg"
+        },
+        "p": {
+            "filename": "char-P.svg"
+        },
+        "q": {
+            "filename": "char-Q.svg"
+        },
+        "r": {
+            "filename": "char-R.svg"
+        },
+        "s": {
+            "filename": "char-S.svg"
+        },
+        "t": {
+            "filename": "char-T.svg"
+        },
+        "u": {
+            "filename": "char-U.svg"
+        },
+        "v": {
+            "filename": "char-V.svg"
+        },
+        "w": {
+            "filename": "char-W.svg"
+        },
+        "x": {
+            "filename": "char-X.svg"
+        },
+        "y": {
+            "filename": "char-Y.svg"
+        },
+        "z": {
+            "filename": "char-Z.svg"
+        },
+
+        "0": {
+            "filename": "char-0.svg"
+        },
+        "1": {
+            "filename": "char-1.svg"
+        },
+        "2": {
+            "filename": "char-2.svg"
+        },
+        "3": {
+            "filename": "char-3.svg"
+        },
+        "4": {
+            "filename": "char-4.svg"
+        },
+        "5": {
+            "filename": "char-5.svg"
+        },
+        "6": {
+            "filename": "char-6.svg"
+        },
+        "7": {
+            "filename": "char-7.svg"
+        },
+        "8": {
+            "filename": "char-8.svg"
+        },
+        "9": {
+            "filename": "char-9.svg"
+        },
+
+        "!": {
+            "filename": "char-!.svg"
+        },
+        "?": {
+            "filename": "char-?.svg"
+        },
+        ".": {
+            "filename": "char-.svg"
+        },
+        ",": {
+            "filename": "char-,.svg"
+        },
+        "”": {
+            "filename": "char-”.svg"
+        },
+        "“": {
+            "filename": "char-“.svg"
+        },
+        "’": {
+            "filename": "char-’.svg"
+        },
+        "‘": {
+            "filename": "char-‘.svg"
         }
     }
 }

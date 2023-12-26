@@ -5,10 +5,10 @@ SVGText svgText;
 void setup() {
 	size(1440, 800);
 	svgText = new SVGText("fonts/samaritan/", 20);
-
+	noFill();
 }
 
 void draw() {
 	background(255);
-	svgText.draw(testText, 0, 0);
+	svgText.draw(testText, 10, 10);
 }
