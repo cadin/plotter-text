@@ -1,19 +1,22 @@
 class SVGCharacter {
 
     PShape shape;
-    float x = 0;
-    float y = 0;
-    float width = 60;
+    float x = 0.0f;
+    float y = 0.0f;
+    float width = 60.0f;
     String filename;
+    String key;
 
-    SVGCharacter(PShape _shape, float _x, float _y, float _width){
+    SVGCharacter(String _key, PShape _shape, float _x, float _y, float _width){
         shape = _shape;
         x = _x;
         y = _y;
         width = _width;
+        key = _key;
     }
 
-    SVGCharacter(String fontPath, JSONObject data) {
+    SVGCharacter(String fontPath, JSONObject data, String _key) {
+        key = _key;
         if(!data.isNull("filename")){
             filename = data.getString("filename");
             shape = loadShape(fontPath + filename);
