@@ -11,7 +11,7 @@ class PlotterFont {
 	float lineHeight = 80;
 	boolean singleCase = true;
 	String fontName = "Untitled Font";
-	float letterSpacing = defaultSize * 0.25f;
+	float letterSpacing = defaultSize * 0.3f;
 
 	HashMap<String, SVGCharacter> characters = new HashMap<String, SVGCharacter>();
 	HashMap<String, Float> kerningPairs = new HashMap<String, Float>();
@@ -116,6 +116,18 @@ class PlotterFont {
 			chars.setJSONObject(charString, character.getData());
 		}
 		data.setJSONObject("chars", chars);
+
+	
+		JSONObject kerningPairsJSON = new JSONObject();
+		Set<String> kerningKeysSet = kerningPairs.keySet();
+		Iterator<String> kerningKeys = kerningKeysSet.iterator();
+		while(kerningKeys.hasNext()) {
+			String key = kerningKeys.next();
+			float value = kerningPairs.get(key);
+
+			kerningPairsJSON.setFloat(key, value);
+		}
+		data.setJSONObject("kerningPairs", kerningPairsJSON);
 
 		saveJSONObject(data, "data/" + fontPath + "data.json");
 		println("DONE");

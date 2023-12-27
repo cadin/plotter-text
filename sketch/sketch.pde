@@ -7,12 +7,30 @@ String[] sampleTexts = {
 	"baby baghdad banana batty beeped bent billow bizarre blood bottle",
 	"bowwow boyfriend bubbly buzzing byproduct bystander byzantine",
 	"cappuccino cattle cent cicero coccyx cooked copyright coyote",
+
 	"croquet cumbersome cycle cylinder czech dabble daddy day divide",
 	"don’t dr during dyke each ebb eek elephant emblem ensnare epiphany",
 	"esquire etching equine farming feared filler fizzy fjord fluid",
 	"foggy foxxy frontal fungal gaggle geared gnome grubby happened",
 	"happiness hazy hellish hope hungry hyphen icy i’m impossible",
-	"intolerant it’s i’ve jazzy jagged jenga jill joint just kangaroo"
+	"intolerant it’s i’ve jazzy jagged jenga jill joint just kangaroo",
+
+	"kettle kitchen knack koala kooky laboratory landing left letter",
+	"likely lilac little loco lolly lover’s luna luxurious lying",
+	"master matter metres miss moonlight morph mr mrs ms mummy muster",
+	"nasal neanderthal necessarily nine nonsense noon numb oar",
+	"obfuscate occult oddly often ogre okay omission ozone parallel",
+	"pear picnic pneumonic poppy porous pygmy quantum queen quince",
+
+	"quota radii rafferty rattle reassure resist retiree rice roommate",
+	"running sassafras savvy scent scuttle seismic shining shook sieve",
+	"sister skink slump snide soup spire stay subject sultana svelte",
+	"swiftly tallied tattooed taxed tension the theatre title totally",
+	"trekked tsunami tutor tying vacuum variable vent vivid void",
+	"vulnerable vying waffle wally warranted water weather whale",
+
+	"withheld worry wurst wysiwyg wyvern xenon xmas yak yeah yip",
+	"you’re yuck zac zeal zigzag zing zodiac zoo"
 };
 
 PlotterFont font;
@@ -25,6 +43,10 @@ SVGCharacter secondCharacter;
 float editorScale = 5;
 float editorMargin = 50;
 boolean isKerning = false;
+int targetChar;
+
+int previewLineIndex = 0;
+int previewLines = 12;
 
 void setup() {
 	size(1440, 800);
@@ -47,6 +69,7 @@ void drawEditor() {
 		drawCurrentCharacter(currentCharacter);
 		if(isKerning && secondCharacter != null ) {
 			drawSecondCharacter(secondCharacter);
+			drawTargetHighlight();
 		}
 	}
 	popMatrix();
@@ -63,6 +86,30 @@ void drawRulers() {
 	if(currentCharacter != null) {
 		line(currentCharacter.width + margin, 0, currentCharacter.width + margin, font.defaultSize + (margin*2));	
 	}	
+}
+
+void drawTargetHighlight() {
+	float margin = editorMargin / editorScale;
+	float w;
+	float x;
+
+	if(targetChar == 1) {
+		w = currentCharacter.width;
+		x = margin;
+	} else {
+		w = secondCharacter.width;
+		x = margin + currentCharacter.width + font.letterSpacing + font.kerningForChars(currentCharacter.key, secondCharacter.key);
+	}
+
+	pushMatrix();
+		fill(0, 255, 255, 100);
+		noStroke();
+		translate(x, margin + font.defaultSize);
+		rect(0, 0, w, 3);
+	popMatrix();
+
+	noFill();
+
 }
 
 void drawCurrentCharacter(SVGCharacter character) {
@@ -89,17 +136,24 @@ void drawUI() {
 
 }
 
-String joinSampleText() {
+String joinSampleText(int startIndex) {
 	String joined = "";
-	for(String line : sampleTexts) {
-		joined += line + "\n";
+
+	for(int i = startIndex; i < startIndex + previewLines; i++) {
+		int index = i % sampleTexts.length;
+		joined += sampleTexts[index] + "\n";
 	}
+
+
+	// for(String line : sampleTexts) {
+	// 	joined += line + "\n";
+	// }
 	return joined;
 
 }
 
 void drawSampleText() {
-	String sampleText = joinSampleText();
+	String sampleText = joinSampleText(previewLineIndex);
 	strokeWeight(2);
 	stroke(0);
 	font.drawText(sampleText, 10, height - 370);
@@ -154,12 +208,22 @@ void keyPressed() {
 	switch(keyCode) {
 		case CONTROL:
 			cntrlIsDown = true;
+			if(isKerning){
+				targetChar ++;
+				if(targetChar > 2){
+					targetChar = 1;
+				}
+			}
 			break;
 		case SHIFT:
 			shiftIsDown = true;
+			
 			break;
 		case ALT:
 			isKerning = !isKerning;
+			if(isKerning) {
+				targetChar = 2;
+			}
 			altIsDown = true;
 			break;
 
@@ -180,11 +244,24 @@ void keyPressed() {
 			}
 
 			break;
+		case 33: // PAGE UP
+			previewLineIndex -= previewLines;
+			if(previewLineIndex < 0) {
+				previewLineIndex = sampleTexts.length + previewLineIndex;
+			}
+			break;
+
+		case 34: // PAGE DOWN
+			previewLineIndex += previewLines;
+			if(previewLineIndex > sampleTexts.length) {
+				previewLineIndex = previewLineIndex - sampleTexts.length;
+			}
+			break;
 	}
 
 	// printable characters
 	if(isPrintable(keyCode)) {
-		if(isKerning) {
+		if(isKerning && targetChar == 2) {
 			secondCharacter = font.characters.get(String.valueOf(key));
 			println("Second character: " + key);
 		} else {
@@ -192,7 +269,7 @@ void keyPressed() {
 			println("Current character: " + key);
 		}
 	}
-
+	println(keyCode);
 
 }
 
