@@ -1,8 +1,7 @@
 import java.util.Iterator;
 import java.util.Set;
 
-
-class PlotterFont {
+class PlotterText {
 
 	String fontPath;
 	float defaultSize = 60.0f;
@@ -16,13 +15,13 @@ class PlotterFont {
 	HashMap<String, SVGCharacter> characters = new HashMap<String, SVGCharacter>();
 	HashMap<String, Float> kerningPairs = new HashMap<String, Float>();
 
-	 PlotterFont(String _fontPath, float _size) {
+	 PlotterText(String _fontPath, float _size) {
 		fontPath = _fontPath;
 		loadData(_fontPath + "data.json");
 		setSize(_size);
 	 }
 
-	PlotterFont(String _fontPath) {
+	PlotterText(String _fontPath) {
 		fontPath = _fontPath;
 		loadData(_fontPath + "data.json");
 	}
@@ -133,7 +132,7 @@ class PlotterFont {
 		}
 		data.setJSONObject("kerningPairs", kerningPairsJSON);
 
-		saveJSONObject(data, "data/" + fontPath + "data.json");
+		saveJSONObject(data, fontPath + "data.json");
 		println("DONE");
 	}
 
@@ -201,3 +200,4 @@ class PlotterFont {
 		}
 	}
 }
+

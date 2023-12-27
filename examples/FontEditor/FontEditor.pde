@@ -1,5 +1,10 @@
-// String sampleText = "The quick brown fox jumps over the lazy dog.";
+// TODO: 
+// - make kerning easier (add UI, alt conflicts with alt+arrow)
+// - controls for scale (of editor and preview text)
+// - build script to bundle classes into single file (with plotterText data?)
 
+
+// https://typeheist.co/blog/sample-text-for-typeface-character-testing/
 String[] sampleTexts = {
 	"aaron abduct accidental adjacent afghan after aint anaheim and",
 	"anybody although allotted ambidextrous amend announced aqua",
@@ -33,7 +38,7 @@ String[] sampleTexts = {
 	"you’re yuck zac zeal zigzag zing zodiac zoo"
 };
 
-PlotterFont font;
+PlotterText plotterText;
 boolean cntrlIsDown = false;
 boolean shiftIsDown = false;
 boolean altIsDown = false;
@@ -50,7 +55,7 @@ int previewLines = 12;
 
 void setup() {
 	size(1440, 800);
-	font = new PlotterFont("fonts/astroTown/", 20);
+	plotterText = new PlotterText("../../fonts/astroTown/", 20);
 	noFill();
 }
 
@@ -80,11 +85,11 @@ void drawRulers() {
 	stroke(0, 255, 255);
 	strokeWeight(1/editorScale);
 	line(0, margin, width, margin);
-	line(0, font.defaultSize + margin, width, font.defaultSize + margin);
-	line(margin, 0, margin, font.defaultSize + (margin*2));
+	line(0, plotterText.defaultSize + margin, width, plotterText.defaultSize + margin);
+	line(margin, 0, margin, plotterText.defaultSize + (margin*2));
 	stroke(255, 0, 0);
 	if(currentCharacter != null) {
-		line(currentCharacter.width + margin, 0, currentCharacter.width + margin, font.defaultSize + (margin*2));	
+		line(currentCharacter.width + margin, 0, currentCharacter.width + margin, plotterText.defaultSize + (margin*2));	
 	}	
 }
 
@@ -98,13 +103,13 @@ void drawTargetHighlight() {
 		x = margin;
 	} else {
 		w = secondCharacter.width;
-		x = margin + currentCharacter.width + font.letterSpacing + font.kerningForChars(currentCharacter.key, secondCharacter.key);
+		x = margin + currentCharacter.width + plotterText.letterSpacing + plotterText.kerningForChars(currentCharacter.key, secondCharacter.key);
 	}
 
 	pushMatrix();
 		fill(0, 255, 255, 100);
 		noStroke();
-		translate(x, margin + font.defaultSize);
+		translate(x, margin + plotterText.defaultSize);
 		rect(0, 0, w, 3);
 	popMatrix();
 
@@ -127,7 +132,7 @@ void drawSecondCharacter(SVGCharacter character) {
 	pushMatrix();
 	stroke(0);
 	strokeWeight(6 / editorScale);
-	translate(margin + currentCharacter.width + (font.letterSpacing * font.defaultSize) + font.kerningForChars(currentCharacter.key, secondCharacter.key), margin);
+	translate(margin + currentCharacter.width + (plotterText.letterSpacing * plotterText.defaultSize) + plotterText.kerningForChars(currentCharacter.key, secondCharacter.key), margin);
 	character.draw();
 	popMatrix();
 }
@@ -143,11 +148,7 @@ String joinSampleText(int startIndex) {
 		int index = i % sampleTexts.length;
 		joined += sampleTexts[index] + "\n";
 	}
-
-
-	// for(String line : sampleTexts) {
-	// 	joined += line + "\n";
-	// }
+	
 	return joined;
 
 }
@@ -156,7 +157,7 @@ void drawSampleText() {
 	String sampleText = joinSampleText(previewLineIndex);
 	strokeWeight(2);
 	stroke(0);
-	font.drawText(sampleText, 10, height - 370);
+	plotterText.drawText(sampleText, 10, height - 370);
 }
 
 void mousePressed() {
@@ -182,7 +183,7 @@ void keyReleased() {
 
 void moveHorizontal(float amount) {
 	if(isKerning && secondCharacter != null) {
-		font.adjustKerning(currentCharacter.key, secondCharacter.key, amount);
+		plotterText.adjustKerning(currentCharacter.key, secondCharacter.key, amount);
 		return;
 	}
 
@@ -194,7 +195,7 @@ void moveHorizontal(float amount) {
 void keyPressed() {
 
 	if(cntrlIsDown && keyCode == 83) { // CNTRL + S
-		font.saveData();
+		plotterText.saveData();
 		return;
 	}
 
@@ -262,10 +263,10 @@ void keyPressed() {
 	// printable characters
 	if(isPrintable(keyCode)) {
 		if(isKerning && targetChar == 2) {
-			secondCharacter = font.characters.get(String.valueOf(key));
+			secondCharacter = plotterText.characters.get(String.valueOf(key));
 			println("Second character: " + key);
 		} else {
-			currentCharacter = font.characters.get(String.valueOf(key));
+			currentCharacter = plotterText.characters.get(String.valueOf(key));
 			println("Current character: " + key);
 		}
 	}
