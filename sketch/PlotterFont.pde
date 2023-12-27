@@ -11,7 +11,7 @@ class PlotterFont {
 	float lineHeight = 80;
 	boolean singleCase = true;
 	String fontName = "Untitled Font";
-	float letterSpacing = defaultSize * 0.3f;
+	float letterSpacing = 0.3f;
 
 	HashMap<String, SVGCharacter> characters = new HashMap<String, SVGCharacter>();
 	HashMap<String, Float> kerningPairs = new HashMap<String, Float>();
@@ -62,6 +62,9 @@ class PlotterFont {
 			defaultSize = data.getFloat("defaultSize");
 			letterSpacing = defaultSize * 0.25f;
 		}
+		if(!data.isNull("letterSpacing")) {
+			letterSpacing = data.getFloat("letterSpacing");
+		}	
 		if (!data.isNull("spaceWidth")) {
 			spaceWidth = data.getFloat("spaceWidth");
 		}
@@ -99,6 +102,7 @@ class PlotterFont {
 		JSONObject data = new JSONObject();
 		data.setString("name", fontName);
 		data.setFloat("defaultSize", defaultSize);
+		data.setFloat("letterSpacing", letterSpacing);
 		data.setFloat("spaceWidth", spaceWidth);
 		data.setFloat("lineHeight", lineHeight);
 		data.setBoolean("singleCase", singleCase);
@@ -190,8 +194,9 @@ class PlotterFont {
 				if(i < _text.length() - 1) {
 					kernDist = kerningForChars(String.valueOf(c), String.valueOf(_text.charAt(i + 1)));
 				}
-				translate(getCharWidth(c) + letterSpacing + kernDist, 0);
-				lineStartX -= getCharWidth(c) + letterSpacing + kernDist;
+				float charWidth = getCharWidth(c) + (letterSpacing * defaultSize) + kernDist;
+				translate(charWidth, 0);
+				lineStartX -= charWidth;
 			}
 		}
 	}

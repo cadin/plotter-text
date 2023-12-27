@@ -127,7 +127,7 @@ void drawSecondCharacter(SVGCharacter character) {
 	pushMatrix();
 	stroke(0);
 	strokeWeight(6 / editorScale);
-	translate(margin + currentCharacter.width + font.letterSpacing + font.kerningForChars(currentCharacter.key, secondCharacter.key), margin);
+	translate(margin + currentCharacter.width + (font.letterSpacing * font.defaultSize) + font.kerningForChars(currentCharacter.key, secondCharacter.key), margin);
 	character.draw();
 	popMatrix();
 }

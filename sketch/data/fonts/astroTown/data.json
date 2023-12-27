@@ -1,302 +1,303 @@
 {
-  "singleCase": true,
-  "defaultSize": 60,
-  "name": "Astro Town",
-  "lineHeight": 90,
-  "kerningPairs": {
-    "lo": -3,
-    "dj": -4,
-    "lt": -13,
-    "ya": -15,
-    "ju": 5,
-    "ye": 1,
-    "i\u2019": -3,
-    "ka": -5,
-    "ic": -2,
-    "ut": -2,
-    "aa": -2,
-    "cc": -3,
-    "ab": 1,
-    "ac": -1,
-    "in": 3,
-    "ot": -4,
-    "ci": 5,
-    "ta": -7,
-    "tc": -7,
-    "ra": -4,
-    "at": -11,
-    "vi": 4,
-    "ja": -5,
-    "ne": 4,
-    "ng": 3,
-    "he": 4,
-    "da": -9
-  },
-  "spaceWidth": 44,
-  "chars": {
-    "\u2018": {
-      "filename": "char-\u2018.svg",
-      "x": -20,
-      "width": 16.799999237060547,
-      "y": -20
+    "singleCase": true,
+    "defaultSize": 60,
+    "name": "Astro Town",
+    "lineHeight": 90,
+    "letterSpacing": 0.3,
+    "kerningPairs": {
+        "lo": -3,
+        "dj": -4,
+        "lt": -13,
+        "ya": -15,
+        "ju": 5,
+        "ye": 1,
+        "i\u2019": -3,
+        "ka": -5,
+        "ic": -2,
+        "ut": -2,
+        "aa": -2,
+        "cc": -3,
+        "ab": 1,
+        "ac": -1,
+        "in": 3,
+        "ot": -4,
+        "ci": 5,
+        "ta": -7,
+        "tc": -7,
+        "ra": -4,
+        "at": -11,
+        "vi": 4,
+        "ja": -5,
+        "ne": 4,
+        "ng": 3,
+        "he": 4,
+        "da": -9
     },
-    "\u2019": {
-      "filename": "char-\u2019.svg",
-      "x": -20,
-      "width": 18.200000762939453,
-      "y": -20
-    },
-    "\u201c": {
-      "filename": "char-\u201c.svg",
-      "x": -20,
-      "width": 33.79999923706055,
-      "y": -20
-    },
-    "\u201d": {
-      "filename": "char-\u201d.svg",
-      "x": -20,
-      "width": 34.20000076293945,
-      "y": -20
-    },
-    "a": {
-      "filename": "char-A.svg",
-      "x": -20,
-      "width": 60.400001525878906,
-      "y": -20
-    },
-    "!": {
-      "filename": "char-!.svg",
-      "x": -20,
-      "width": 23,
-      "y": -20
-    },
-    "b": {
-      "filename": "char-B.svg",
-      "x": -20,
-      "width": 50.79999923706055,
-      "y": -20
-    },
-    "c": {
-      "filename": "char-C.svg",
-      "x": -20,
-      "width": 52,
-      "y": -20
-    },
-    "d": {
-      "filename": "char-D.svg",
-      "x": -19.899999618530273,
-      "width": 55.19999694824219,
-      "y": -20
-    },
-    "e": {
-      "filename": "char-E.svg",
-      "x": -20,
-      "width": 45.20000076293945,
-      "y": -20
-    },
-    "f": {
-      "filename": "char-F.svg",
-      "x": -20,
-      "width": 42.79999923706055,
-      "y": -20
-    },
-    "g": {
-      "filename": "char-G.svg",
-      "x": -20,
-      "width": 66,
-      "y": -20
-    },
-    "h": {
-      "filename": "char-H.svg",
-      "x": -20,
-      "width": 50,
-      "y": -20
-    },
-    "i": {
-      "filename": "char-I.svg",
-      "x": -20,
-      "width": 42,
-      "y": -20
-    },
-    "j": {
-      "filename": "char-J.svg",
-      "x": -20,
-      "width": 41.400001525878906,
-      "y": -20
-    },
-    "k": {
-      "filename": "char-K.svg",
-      "x": -20,
-      "width": 53,
-      "y": -20
-    },
-    "l": {
-      "filename": "char-L.svg",
-      "x": -20,
-      "width": 40.400001525878906,
-      "y": -20
-    },
-    ",": {
-      "filename": "char-,.svg",
-      "x": -20,
-      "width": 7.799999237060547,
-      "y": -20
-    },
-    "m": {
-      "filename": "char-M.svg",
-      "x": -20,
-      "width": 71,
-      "y": -20
-    },
-    "n": {
-      "filename": "char-N.svg",
-      "x": -20,
-      "width": 46,
-      "y": -20
-    },
-    ".": {
-      "filename": "char-.svg",
-      "x": -20,
-      "width": 4,
-      "y": -20
-    },
-    "o": {
-      "filename": "char-O.svg",
-      "x": -20,
-      "width": 62.400001525878906,
-      "y": -20
-    },
-    "p": {
-      "filename": "char-P.svg",
-      "x": -20,
-      "width": 52,
-      "y": -20
-    },
-    "0": {
-      "filename": "char-0.svg",
-      "x": -20,
-      "width": 60,
-      "y": -20
-    },
-    "q": {
-      "filename": "char-Q.svg",
-      "x": -20,
-      "width": 68.19999694824219,
-      "y": -20
-    },
-    "1": {
-      "filename": "char-1.svg",
-      "x": -20,
-      "width": 15.799999237060547,
-      "y": -20
-    },
-    "r": {
-      "filename": "char-R.svg",
-      "x": -20,
-      "width": 54,
-      "y": -20
-    },
-    "2": {
-      "filename": "char-2.svg",
-      "x": -20,
-      "width": 50,
-      "y": -20
-    },
-    "s": {
-      "filename": "char-S.svg",
-      "x": -20,
-      "width": 54.599998474121094,
-      "y": -20
-    },
-    "3": {
-      "filename": "char-3.svg",
-      "x": -20,
-      "width": 52.400001525878906,
-      "y": -20
-    },
-    "t": {
-      "filename": "char-T.svg",
-      "x": -20,
-      "width": 48.79999923706055,
-      "y": -20
-    },
-    "4": {
-      "filename": "char-4.svg",
-      "x": -20,
-      "width": 60,
-      "y": -20
-    },
-    "u": {
-      "filename": "char-U.svg",
-      "x": -20,
-      "width": 50,
-      "y": -20
-    },
-    "5": {
-      "filename": "char-5.svg",
-      "x": -20,
-      "width": 50.400001525878906,
-      "y": -20
-    },
-    "v": {
-      "filename": "char-V.svg",
-      "x": -20,
-      "width": 52.599998474121094,
-      "y": -20
-    },
-    "6": {
-      "filename": "char-6.svg",
-      "x": -20,
-      "width": 56.80000305175781,
-      "y": -20
-    },
-    "w": {
-      "filename": "char-W.svg",
-      "x": -20,
-      "width": 56.19999694824219,
-      "y": -20
-    },
-    "7": {
-      "filename": "char-7.svg",
-      "x": -20,
-      "width": 41.599998474121094,
-      "y": -20
-    },
-    "x": {
-      "filename": "char-X.svg",
-      "x": -20,
-      "width": 43.20000076293945,
-      "y": -20
-    },
-    "8": {
-      "filename": "char-8.svg",
-      "x": -20,
-      "width": 65.19999694824219,
-      "y": -20
-    },
-    "y": {
-      "filename": "char-Y.svg",
-      "x": -20,
-      "width": 47,
-      "y": -20
-    },
-    "9": {
-      "filename": "char-9.svg",
-      "x": -20,
-      "width": 56.19999694824219,
-      "y": -20
-    },
-    "z": {
-      "filename": "char-Z.svg",
-      "x": -20,
-      "width": 42,
-      "y": -20
-    },
-    "?": {
-      "filename": "char-?.svg",
-      "x": -20,
-      "width": 46.400001525878906,
-      "y": -20
+    "spaceWidth": 44,
+    "chars": {
+        "\u2018": {
+            "filename": "char-\u2018.svg",
+            "x": -20,
+            "width": 16.799999237060547,
+            "y": -20
+        },
+        "\u2019": {
+            "filename": "char-\u2019.svg",
+            "x": -20,
+            "width": 18.200000762939453,
+            "y": -20
+        },
+        "\u201c": {
+            "filename": "char-\u201c.svg",
+            "x": -20,
+            "width": 33.79999923706055,
+            "y": -20
+        },
+        "\u201d": {
+            "filename": "char-\u201d.svg",
+            "x": -20,
+            "width": 34.20000076293945,
+            "y": -20
+        },
+        "a": {
+            "filename": "char-A.svg",
+            "x": -20,
+            "width": 60.400001525878906,
+            "y": -20
+        },
+        "!": {
+            "filename": "char-!.svg",
+            "x": -20,
+            "width": 23,
+            "y": -20
+        },
+        "b": {
+            "filename": "char-B.svg",
+            "x": -20,
+            "width": 50.79999923706055,
+            "y": -20
+        },
+        "c": {
+            "filename": "char-C.svg",
+            "x": -20,
+            "width": 52,
+            "y": -20
+        },
+        "d": {
+            "filename": "char-D.svg",
+            "x": -19.899999618530273,
+            "width": 55.19999694824219,
+            "y": -20
+        },
+        "e": {
+            "filename": "char-E.svg",
+            "x": -20,
+            "width": 45.20000076293945,
+            "y": -20
+        },
+        "f": {
+            "filename": "char-F.svg",
+            "x": -20,
+            "width": 42.79999923706055,
+            "y": -20
+        },
+        "g": {
+            "filename": "char-G.svg",
+            "x": -20,
+            "width": 66,
+            "y": -20
+        },
+        "h": {
+            "filename": "char-H.svg",
+            "x": -20,
+            "width": 50,
+            "y": -20
+        },
+        "i": {
+            "filename": "char-I.svg",
+            "x": -20,
+            "width": 42,
+            "y": -20
+        },
+        "j": {
+            "filename": "char-J.svg",
+            "x": -20,
+            "width": 41.400001525878906,
+            "y": -20
+        },
+        "k": {
+            "filename": "char-K.svg",
+            "x": -20,
+            "width": 53,
+            "y": -20
+        },
+        "l": {
+            "filename": "char-L.svg",
+            "x": -20,
+            "width": 40.400001525878906,
+            "y": -20
+        },
+        ",": {
+            "filename": "char-,.svg",
+            "x": -20,
+            "width": 7.799999237060547,
+            "y": -20
+        },
+        "m": {
+            "filename": "char-M.svg",
+            "x": -20,
+            "width": 71,
+            "y": -20
+        },
+        "n": {
+            "filename": "char-N.svg",
+            "x": -20,
+            "width": 46,
+            "y": -20
+        },
+        ".": {
+            "filename": "char-.svg",
+            "x": -20,
+            "width": 4,
+            "y": -20
+        },
+        "o": {
+            "filename": "char-O.svg",
+            "x": -20,
+            "width": 62.400001525878906,
+            "y": -20
+        },
+        "p": {
+            "filename": "char-P.svg",
+            "x": -20,
+            "width": 52,
+            "y": -20
+        },
+        "0": {
+            "filename": "char-0.svg",
+            "x": -20,
+            "width": 60,
+            "y": -20
+        },
+        "q": {
+            "filename": "char-Q.svg",
+            "x": -20,
+            "width": 68.19999694824219,
+            "y": -20
+        },
+        "1": {
+            "filename": "char-1.svg",
+            "x": -20,
+            "width": 15.799999237060547,
+            "y": -20
+        },
+        "r": {
+            "filename": "char-R.svg",
+            "x": -20,
+            "width": 54,
+            "y": -20
+        },
+        "2": {
+            "filename": "char-2.svg",
+            "x": -20,
+            "width": 50,
+            "y": -20
+        },
+        "s": {
+            "filename": "char-S.svg",
+            "x": -20,
+            "width": 54.599998474121094,
+            "y": -20
+        },
+        "3": {
+            "filename": "char-3.svg",
+            "x": -20,
+            "width": 52.400001525878906,
+            "y": -20
+        },
+        "t": {
+            "filename": "char-T.svg",
+            "x": -20,
+            "width": 48.79999923706055,
+            "y": -20
+        },
+        "4": {
+            "filename": "char-4.svg",
+            "x": -20,
+            "width": 60,
+            "y": -20
+        },
+        "u": {
+            "filename": "char-U.svg",
+            "x": -20,
+            "width": 50,
+            "y": -20
+        },
+        "5": {
+            "filename": "char-5.svg",
+            "x": -20,
+            "width": 50.400001525878906,
+            "y": -20
+        },
+        "v": {
+            "filename": "char-V.svg",
+            "x": -20,
+            "width": 52.599998474121094,
+            "y": -20
+        },
+        "6": {
+            "filename": "char-6.svg",
+            "x": -20,
+            "width": 56.80000305175781,
+            "y": -20
+        },
+        "w": {
+            "filename": "char-W.svg",
+            "x": -20,
+            "width": 56.19999694824219,
+            "y": -20
+        },
+        "7": {
+            "filename": "char-7.svg",
+            "x": -20,
+            "width": 41.599998474121094,
+            "y": -20
+        },
+        "x": {
+            "filename": "char-X.svg",
+            "x": -20,
+            "width": 43.20000076293945,
+            "y": -20
+        },
+        "8": {
+            "filename": "char-8.svg",
+            "x": -20,
+            "width": 65.19999694824219,
+            "y": -20
+        },
+        "y": {
+            "filename": "char-Y.svg",
+            "x": -20,
+            "width": 47,
+            "y": -20
+        },
+        "9": {
+            "filename": "char-9.svg",
+            "x": -20,
+            "width": 56.19999694824219,
+            "y": -20
+        },
+        "z": {
+            "filename": "char-Z.svg",
+            "x": -20,
+            "width": 42,
+            "y": -20
+        },
+        "?": {
+            "filename": "char-?.svg",
+            "x": -20,
+            "width": 46.400001525878906,
+            "y": -20
+        }
     }
-  }
 }
