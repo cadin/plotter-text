@@ -1,6 +1,7 @@
 import java.util.Iterator;
 import java.util.Set;
 
+
 class PlotterFont {
 
 	String fontPath;
@@ -9,8 +10,9 @@ class PlotterFont {
 	float scale = 1.0f;
 	float lineHeight = 80;
 	boolean singleCase = true;
+	String fontName = "Untitled Font";
 
-	HashMap<String,PShape> shapes = new HashMap<String,PShape>();
+	HashMap<String, SVGCharacter> characters = new HashMap<String, SVGCharacter>();
 
 	 PlotterFont(String _fontPath, float _size) {
 		fontPath = _fontPath;
@@ -32,17 +34,17 @@ class PlotterFont {
 			String key = keys.next();
 			JSONObject charData = _chars.getJSONObject(key);
 
-			PShape shape = loadShape(fontPath + charData.getString("filename"));
-			shape.disableStyle();
-			shapes.put(key, shape);
-			// println(key);
-			// println(charData);
+			SVGCharacter character = new SVGCharacter(fontPath, charData);
+			characters.put(key, character);
 		}
 	}
 	
 	void loadData(String _path) {
 		JSONObject data = loadJSONObject(_path);
 
+		if (!data.isNull("name")) {
+			fontName = data.getString("name");
+		}
 		if(!data.isNull("defaultSize")) {
 			defaultSize = data.getFloat("defaultSize");
 		}
@@ -59,21 +61,51 @@ class PlotterFont {
 		loadChars(data.getJSONObject("chars"));
 	}
 
+	void saveData() {
+		println("Saving font data...");
+		JSONObject data = new JSONObject();
+		data.setString("name", fontName);
+		data.setFloat("defaultSize", defaultSize);
+		data.setFloat("spaceWidth", spaceWidth);
+		data.setFloat("lineHeight", lineHeight);
+		data.setBoolean("singleCase", singleCase);
+
+		JSONObject chars = new JSONObject();
+		Set<String> keysSet = characters.keySet();
+		Iterator<String> keys = keysSet.iterator();
+		while(keys.hasNext()) {
+			String key = keys.next();
+			SVGCharacter character = characters.get(key);
+
+			// get the string value of the character (not unicode escaped):
+			String charString = String.valueOf(key.charAt(0));
+
+			chars.setJSONObject(charString, character.getData());
+		}
+		data.setJSONObject("chars", chars);
+
+		saveJSONObject(data, "data/" + fontPath + "data.json");
+		println("DONE");
+	}
+
 	void setSize(float _size) {
 		scale = _size / defaultSize;
 	} 
 
 	float getCharWidth(char _char) {
-		return 80;
+		SVGCharacter character = characters.get(String.valueOf(_char));
+		if(character != null) {
+			return character.width;
+		}
+		return 60;
 	}
 
 	void drawChar(char _char) {
-		PShape shape = shapes.get(String.valueOf(_char));
-		if(shape == null) {
-			shape = shapes.get("null");	
-		} 
 
-		shape(shape, -20, -20);
+		SVGCharacter character = characters.get(String.valueOf(_char));
+		if(character != null) {
+			character.draw();
+		}
 	}
 
 	void drawText(String _text) {
@@ -94,22 +126,23 @@ class PlotterFont {
 
 	protected void drawString(String _text) {
 		float lineStartX = 0;
+		float letterSpacing = defaultSize * 0.25f;
 		for (int i = 0; i < _text.length(); i++) {
 			char c = _text.charAt(i);
-			if(font.singleCase) {
+			if(singleCase) {
 				c = Character.toLowerCase(c);
 			}
 
 			if (c == ' ') {
-				translate(font.spaceWidth, 0);
-				lineStartX -= font.spaceWidth;
+				translate(spaceWidth, 0);
+				lineStartX -= spaceWidth;
 			} else if (c == '\n') {
-				translate(lineStartX, font.lineHeight);
+				translate(lineStartX, lineHeight);
 				lineStartX = 0;
 			} else {
 				drawChar(c);
-				translate(font.getCharWidth(c), 0);
-				lineStartX -= font.getCharWidth(c);
+				translate(getCharWidth(c) + letterSpacing, 0);
+				lineStartX -= getCharWidth(c) + letterSpacing;
 			}
 		}
 	}
