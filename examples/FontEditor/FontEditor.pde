@@ -120,24 +120,24 @@ void drawTargetHighlight() {
 
 }
 
+void drawLargeCharacter(SVGCharacter _character, float _x, float _y) {
+	pushMatrix();
+		noFill();
+		translate(_x, _y);
+		strokeWeight(6 / editorScale);
+		stroke(0);
+		_character.draw();
+	popMatrix();
+}
+
 void drawCurrentCharacter(SVGCharacter character) {
 	float margin = editorMargin / editorScale;
-	pushMatrix();
-	stroke(0);
-	strokeWeight(6 / editorScale);
-	translate(margin, margin);
-	character.draw();
-	popMatrix();
+	drawLargeCharacter(character, margin, margin);
 }
 
 void drawSecondCharacter(SVGCharacter character) {
 	float margin = editorMargin / editorScale;
-	pushMatrix();
-	stroke(0);
-	strokeWeight(6 / editorScale);
-	translate(margin + currentCharacter.width + (plotterText.letterSpacing * plotterText.defaultSize) + plotterText.kerningForChars(currentCharacter.key, secondCharacter.key), margin);
-	character.draw();
-	popMatrix();
+	drawLargeCharacter(character, margin + currentCharacter.width + (plotterText.letterSpacing * plotterText.defaultSize) + plotterText.kerningForChars(currentCharacter.key, secondCharacter.key), margin);
 }
 
 void drawUI() {
