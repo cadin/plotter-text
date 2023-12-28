@@ -1,7 +1,6 @@
 // TODO: 
 // - make kerning easier (add UI, alt conflicts with alt+arrow)
 // - controls for scale (of editor and preview text)
-// - build script to bundle classes into single file (with plotterText data?)
 
 
 // https://typeheist.co/blog/sample-text-for-typeface-character-testing/
@@ -148,7 +147,7 @@ String joinSampleText(int startIndex) {
 		int index = i % sampleTexts.length;
 		joined += sampleTexts[index] + "\n";
 	}
-	
+
 	return joined;
 
 }

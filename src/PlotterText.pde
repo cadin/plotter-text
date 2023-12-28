@@ -156,6 +156,35 @@ class PlotterText {
 		}
 	}
 
+	float getStringWidth(String _text) {
+		float maxWidth = 0;
+		float lineStartX = 0;
+		float lineWidth = 0;
+		
+		for (int i = 0; i < _text.length(); i++) {
+			char c = _text.charAt(i);
+			if(singleCase) {
+				c = Character.toLowerCase(c);
+			}
+
+			if (c == ' ') {
+				lineWidth += spaceWidth;
+			} else if (c == '\n') {
+				maxWidth = max(maxWidth, lineWidth);
+				lineWidth = 0;
+			} else {
+				float kernDist = 0;
+				if(i < _text.length() - 1) {
+					kernDist = kerningForChars(String.valueOf(c), String.valueOf(_text.charAt(i + 1)));
+				}
+				float charWidth = getCharWidth(c) + (letterSpacing * defaultSize) + kernDist;
+				lineWidth += charWidth;
+			}
+		}
+
+		return max(maxWidth, lineWidth) * scale;
+	}
+
 	void drawText(String _text) {
 		drawText(_text, 0, 0);
 	}
