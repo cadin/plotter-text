@@ -34,7 +34,11 @@ String[] sampleTexts = {
 	"vulnerable vying waffle wally warranted water weather whale",
 
 	"withheld worry wurst wysiwyg wyvern xenon xmas yak yeah yip",
-	"you’re yuck zac zeal zigzag zing zodiac zoo"
+	"you’re yuck zac zeal zigzag zing zodiac zoo",
+	
+	"AC AT AVA AWA AYA AV AW AY AZ CT CYC FA FE FO KV KW KY LO LV LY NG",
+	"OD PA PA PE PO TA TA TE TI TO TR TS TU TY UA VA VA VE VO VR VU",
+	"VY WA WO WA WE WR WV WY YS"
 };
 
 PlotterText plotterText;

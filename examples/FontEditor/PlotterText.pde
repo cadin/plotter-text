@@ -80,6 +80,9 @@ class PlotterText {
 
 	void adjustKerning(String _char1, String _char2, float _adjustment) {
 		String pair = _char1 + _char2;
+		if(singleCase) {
+			pair = pair.toLowerCase();
+		}
 		if(kerningPairs.containsKey(pair)) {
 			float currentAdjustment = kerningPairs.get(pair);
 			kerningPairs.put(pair, currentAdjustment + _adjustment);
@@ -90,6 +93,9 @@ class PlotterText {
 
 	float kerningForChars(String _char1, String _char2) {
 		String pair = _char1 + _char2;
+		if(singleCase) {
+			pair = pair.toLowerCase();
+		}
 		if(kerningPairs.containsKey(pair)) {
 			return kerningPairs.get(pair);
 		}
