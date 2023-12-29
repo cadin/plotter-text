@@ -43,6 +43,7 @@ boolean cntrlIsDown = false;
 boolean shiftIsDown = false;
 boolean altIsDown = false;
 
+String currentCharacterKey = "a";
 SVGCharacter currentCharacter;
 SVGCharacter secondCharacter;
 float editorScale = 4;
@@ -63,6 +64,7 @@ int mode = MODE_POSITION;
 
 ControlP5 cp5;
 Textlabel modeLabel;
+Textlabel noGlyphLabel;
 
 void setup() {
 	size(1440, 800);
@@ -82,45 +84,57 @@ void setup() {
 void setupUI() {
 	cp5 = new ControlP5(this);
 
-	ButtonBar b = cp5.addButtonBar("modeChange")
+	ButtonBar topBar = cp5.addButtonBar("modeChange")
 		.setPosition(0, 0)
 		.setSize(400, 20)
 		.addItems(split("position kerning letterspacing"," "))
 		;
-	b.changeItem("position","selected",true);
+	topBar.changeItem("position","selected",true);
 
-	ButtonBar b2 = cp5.addButtonBar("previewSize")
+	ButtonBar previewSizeBar = cp5.addButtonBar("previewSize")
 		.setPosition(0, previewPosition)
 		.setSize(195, 20)
 		.addItems(split("small medium large"," "))
 		;
-	b2.changeItem("large","selected",true);
+	previewSizeBar.changeItem("large","selected",true);
 
-	ButtonBar b3 = cp5.addButtonBar("strokeSize")
-		.setPosition(205, previewPosition)
-		.setSize(195, 20)
+	ButtonBar strokeSizeBar = cp5.addButtonBar("strokeSize")
+		.setPosition(200, previewPosition)
+		.setSize(200, 20)
 		.addItems(split("thin medium thick"," "))
 		;
-	b3.changeItem("medium","selected",true);
+	strokeSizeBar.changeItem("medium","selected",true);
 
 	modeLabel = cp5.addTextlabel("label")
 		.setText("ARROW KEYS ADJUST CHARACTER POSITION")
-		.setPosition(50,editorHeight + topBarHeight + 10)
+		.setPosition(20,editorHeight + topBarHeight + 10)
 		.setColorValue(0)
+		;
+	noGlyphLabel = cp5.addTextlabel("noGlyph")
+		.setText("NO GLYPH")
+		.setPosition(100, topBarHeight + editorHeight / 2)
+		.setColorValue(100)
+		.setVisible(false)
 		;
 	cp5.addTextlabel("label2")
 		.setText("SHIFT OR ALT FOR MACRO/MICRO ADJUSTMENTS")
-		.setPosition(50,editorHeight + topBarHeight + 22)
+		.setPosition(20,editorHeight + topBarHeight + 22)
 		.setColorValue(150)
 		;
 	cp5.addTextlabel("label3")
 		.setText("PG UP/DOWN CYCLES PREVIEW TEXT")
-		.setPosition(50,height - 30)
+		.setPosition(20,height - 30)
 		.setColorValue(100)
 		;
 
 	Button saveButton = cp5.addButton("save")
+		.setLabel("SAVE FONT")
 		.setPosition(width -100, 0)
+		.setSize(100, 20)
+		;
+	Button loadButton = cp5.addButton("loadGlyph")
+		.setLabel("LOAD GLYPH")
+		.setPosition(width -205, 0)
 		.setSize(100, 20)
 		;
 }
@@ -139,6 +153,20 @@ void modeChange(int n) {
 			modeLabel.setText("ARROW KEYS ADJUST GLOBAL LETTER SPACING");
 			break;
 	}
+}
+
+void loadGlyph() {
+	File defaultDirectory;
+	String fullPath = sketchPath() + "/" + plotterText.fontPath +"char-" + currentCharacterKey + ".svg";
+	try {
+		defaultDirectory = new File(fullPath).getCanonicalFile();
+	} catch (IOException e) {
+		println("Error resolving path: ");
+		println(e.getMessage());
+		return;
+	}
+
+	selectInput("Select glyph for " + currentCharacterKey, "onGlyphSelected", defaultDirectory, this);
 }
 
 void save() {
@@ -163,8 +191,19 @@ void draw() {
 		drawEditor();
 	}
 	drawPreviewText();
-
 	drawUI();
+}
+
+// Callback for selectInput()
+public void onGlyphSelected(File file) {
+	if(file == null) return;
+
+	String name = file.getName();
+	plotterText.addGlyphForChar(name, currentCharacterKey);
+	currentCharacter = plotterText.characters.get(currentCharacterKey);
+	if(currentCharacter == null){
+		println("Error loading glyph");
+	}
 }
 
 void drawEditor() {
@@ -174,10 +213,13 @@ void drawEditor() {
 		noFill();
 		drawRulers();
 		if(currentCharacter != null) {
+			noGlyphLabel.setVisible(false);
 			drawCurrentCharacter(currentCharacter);
 			if(mode == MODE_KERNING && secondCharacter != null ) {
 				drawSecondCharacter(secondCharacter);
 			}
+		} else {
+			noGlyphLabel.setVisible(true);
 		}
 	popMatrix();
 }
@@ -215,9 +257,7 @@ void drawRulers() {
 }
 
 boolean mouseIsInEditorArea() {
-	float topRule = editorMargin / editorScale;;
-	float bottomRule = topRule + plotterText.defaultSize;
-	return mouseY < bottomRule * editorScale && mouseY > topRule * editorScale;
+	return mouseY < editorHeight + topBarHeight && mouseY > topBarHeight + editorMargin;
 }
 
 void drawLargeCharacter(SVGCharacter character, float x, float y) {
@@ -366,16 +406,16 @@ void keyPressed() {
 				println("Second character: " + key);
 			} else {
 				secondCharacter = null;
+				currentCharacterKey = String.valueOf(key);
 				currentCharacter = plotterText.characters.get(String.valueOf(key));
 				println("Current character: " + key);
 			}
 		} else {
+			currentCharacterKey = String.valueOf(key);
 			currentCharacter = plotterText.characters.get(String.valueOf(key));
 			println("Current character: " + key);
 		}
 	}
-	println(keyCode);
-
 }
 
 // this is probably not a complete list

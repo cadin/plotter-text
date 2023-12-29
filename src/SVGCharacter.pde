@@ -6,17 +6,10 @@ class SVGCharacter {
     float width = 60.0f;
     String filename;
     String key;
+    String fontPath = "";
 
-    SVGCharacter(String _key, PShape _shape, float _x, float _y, float _width){
-        shape = _shape;
-        x = _x;
-        y = _y;
-        width = _width;
-        key = _key;
-    }
-
-    SVGCharacter(String fontPath, JSONObject data, String _key) {
-        key = _key;
+    SVGCharacter(String fontPath, JSONObject data, String charKey) {
+        key = charKey;
         if(!data.isNull("filename")){
             filename = data.getString("filename");
             shape = loadShape(fontPath + filename);
@@ -33,6 +26,14 @@ class SVGCharacter {
             width = data.getFloat("width");
         }
         
+        this.fontPath = fontPath;
+    }
+
+    SVGCharacter(String fontPath, String filename, String charKey) {
+        key = charKey;
+        shape = loadShape(fontPath + filename);
+        shape.disableStyle();
+        this.fontPath = fontPath;
     }
 
     JSONObject getData() {
@@ -42,6 +43,12 @@ class SVGCharacter {
         data.setFloat("width", width);
         data.setString("filename", filename);
         return data;
+    }
+
+    void setFilename(String name) {
+        filename = name;
+        shape = loadShape(fontPath + filename);
+        shape.disableStyle();
     }
 
     void draw() {

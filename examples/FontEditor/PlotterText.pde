@@ -1,58 +1,290 @@
 import java.util.Iterator;
 import java.util.Set;
 
-class PlotterText {
+public class PlotterText {
 
+	/**
+	 * path to the font data folder (relative to the sketch folder)
+	 */
 	String fontPath;
+
+	/**
+	 * The default size of the font (height of the SVG glyphs)
+	 */
 	float defaultSize = 60.0f;
+
+	/**
+	 * The width of a space character
+	 */
 	float spaceWidth = 44;
+	
+	/**
+	 * The scale of the font (defaultSize * scale = actual size)
+	 */
 	float scale = 1.0f;
+
+	/**
+	 * Controls linespacing in multi-line text
+	 */
 	float lineHeight = 80;
+
+	/**
+	 * If true, all characters will be treated as lowercase
+	 */
 	boolean singleCase = true;
+
+	/**
+	 * The name of the font
+	 */
 	String fontName = "Untitled Font";
+	
+	/**
+	 * The spacing between characters
+	 */
 	float letterSpacing = 0.3f;
 
+	/**
+	 * A map of all the characters in the font
+	 */
 	HashMap<String, SVGCharacter> characters = new HashMap<String, SVGCharacter>();
+	
+	/**
+	 * A map of all the kerning pairs in the font
+	 */
 	HashMap<String, Float> kerningPairs = new HashMap<String, Float>();
 
-	 PlotterText(String _fontPath, float _size) {
-		fontPath = _fontPath;
-		loadData(_fontPath + "data.json");
-		setSize(_size);
+
+	/**
+	 * Creates a new PlotterText object
+	 * @param path The path to the font data folder (relative to the sketch folder)
+	 * @param size The display size of the font (height of the SVG glyphs)
+	 */
+	PlotterText(String path, float size) {
+		fontPath = path;
+		loadData(fontPath + "data.json");
+		setSize(size);
 	 }
 
-	PlotterText(String _fontPath) {
-		fontPath = _fontPath;
-		loadData(_fontPath + "data.json");
+	/**
+	 * Creates a new PlotterText object
+	 * @param path The path to the font data folder (relative to the sketch folder)
+	 */
+	PlotterText(String path) {
+		fontPath = path;
+		loadData(fontPath + "data.json");
 	}
 
-	void loadChars(JSONObject _chars) {
-		println(_chars.size());
+	/**
+	 * Adjust the amount of kerning between two characters
+	 * @param char1 The first character in the pair
+	 * @param char2 The second character in the pair
+	 * @param adjustment The amount to adjust the kerning by
+	 */
+	void adjustKerning(String char1, String char2, float adjustment) {
+		String pair = char1 + char2;
+		if(singleCase) pair = pair.toLowerCase();
+		
+		if(kerningPairs.containsKey(pair)) {
+			float currentAdjustment = kerningPairs.get(pair);
+			kerningPairs.put(pair, currentAdjustment + adjustment);
+		} else {
+			kerningPairs.put(pair, adjustment);
+		}
+	}
 
-		Set<String> keysSet = _chars.keys();
+	/**
+	 * Get the amount of kerning between two characters
+	 * @param char1 The first character in the pair
+	 * @param char2 The second character in the pair
+	 * @param adjustment The amount to adjust the kerning by
+	 */
+	float kerningForChars(String char1, String char2) {
+		String pair = char1 + char2;
+		if(singleCase) pair = pair.toLowerCase();
+		
+		if(kerningPairs.containsKey(pair)) {
+			return kerningPairs.get(pair);
+		}
+		return 0;
+	}
+
+	/**
+	 * Saves the font data to a JSON file
+	 */
+	void saveData() {
+		println("Saving font data...");
+		JSONObject data = new JSONObject();
+		data.setString("name", fontName);
+		data.setFloat("defaultSize", defaultSize);
+		data.setFloat("letterSpacing", letterSpacing);
+		data.setFloat("spaceWidth", spaceWidth);
+		data.setFloat("lineHeight", lineHeight);
+		data.setBoolean("singleCase", singleCase);
+
+		JSONObject chars = new JSONObject();
+		Set<String> keysSet = characters.keySet();
 		Iterator<String> keys = keysSet.iterator();
 		while(keys.hasNext()) {
 			String key = keys.next();
-			JSONObject charData = _chars.getJSONObject(key);
+			SVGCharacter character = characters.get(key);
+			String charString = String.valueOf(key.charAt(0));
+			chars.setJSONObject(charString, character.getData());
+		}
+		data.setJSONObject("chars", chars);
+	
+		JSONObject kerningPairsJSON = new JSONObject();
+		Set<String> kerningKeysSet = kerningPairs.keySet();
+		Iterator<String> kerningKeys = kerningKeysSet.iterator();
+		while(kerningKeys.hasNext()) {
+			String key = kerningKeys.next();
+			float value = kerningPairs.get(key);
+			kerningPairsJSON.setFloat(key, value);
+		}
+		data.setJSONObject("kerningPairs", kerningPairsJSON);
+
+		saveJSONObject(data, fontPath + "data.json");
+		println("DONE");
+	}
+
+	/**
+	 * Sets the display size of the font
+	 * @param size The new size of the font (height of the SVG glyphs)
+	 */
+	void setSize(float size) {
+		scale = size / defaultSize;
+	} 
+
+	/**
+	 * Get the width of the specified character
+	 * @param c The character to get the width of
+	 */
+	float getCharWidth(char c) {
+		SVGCharacter character = characters.get(String.valueOf(c));
+		if(character != null) {
+			return character.width;
+		}
+		return 60;
+	}
+
+	/**
+	 * Draws the specified character
+	 * @param c The character to draw
+	 */
+	void drawChar(char c) {
+		SVGCharacter character = characters.get(String.valueOf(c));
+		if(character != null) {
+			character.draw();
+		}
+	}
+
+	/**
+	 * Get the width of the specified string
+	 * @param text The string to get the width of
+	 */
+	float getStringWidth(String text) {
+		float maxWidth = 0;
+		float lineStartX = 0;
+		float lineWidth = 0;
+		
+		for (int i = 0; i < text.length(); i++) {
+			char c = text.charAt(i);
+			if(singleCase) {
+				c = Character.toLowerCase(c);
+			}
+
+			if (c == ' ') {
+				lineWidth += spaceWidth;
+			} else if (c == '\n') {
+				maxWidth = max(maxWidth, lineWidth);
+				lineWidth = 0;
+			} else {
+				float kernDist = 0;
+				if(i < text.length() - 1) {
+					kernDist = kerningForChars(String.valueOf(c), String.valueOf(text.charAt(i + 1)));
+				}
+				float charWidth = getCharWidth(c) + (letterSpacing * defaultSize) + kernDist;
+				lineWidth += charWidth;
+			}
+		}
+
+		return max(maxWidth, lineWidth) * scale;
+	}
+
+	/**
+	 * Draws the specified string at the current position
+	 * @param text The string to draw
+	 */
+	void drawText(String text) {
+		drawText(text, 0, 0);
+	}
+
+	/**
+	 * Draws the specified string at the specified position
+	 * @param text The string to draw
+	 * @param x The x position to draw the string at
+	 * @param y The y position to draw the string at
+	 */
+	void drawText(String text, float x, float y) {
+		float originalStroke = g.strokeWeight;
+		pushMatrix();
+			translate(x, y);
+			strokeWeight(originalStroke / scale);
+			scale(scale);
+			drawString(text);
+		popMatrix();
+
+		strokeWeight(originalStroke);
+	}
+
+	/**
+	 * Add a new SVG glyph to the font
+	 * @param filename The filename of the SVG file to load
+	 * @param character The character to assign the glyph to
+	 */
+	void addGlyphForChar(String filename, String character) {
+		SVGCharacter svgChar = characters.get(String.valueOf(character));
+		if(svgChar == null) {
+			svgChar = new SVGCharacter(fontPath, filename, character);
+			if(svgChar != null) {
+				characters.put(character, svgChar);
+			} else {
+				println("Error loading glyph at path:");
+				println(fontPath + filename);
+			}
+		} else {
+			svgChar.setFilename(filename);
+		}
+
+	}
+
+	// Private methods
+	// --------------------------------
+
+	private void loadChars(JSONObject chars) {
+		Set<String> keysSet = chars.keys();
+		Iterator<String> keys = keysSet.iterator();
+		while(keys.hasNext()) {
+			String key = keys.next();
+			JSONObject charData = chars.getJSONObject(key);
 
 			SVGCharacter character = new SVGCharacter(fontPath, charData, key);
 			characters.put(key, character);
 		}
 	}
 
-	void loadKerningPairs(JSONObject _pairs) {
-		Set<String> keysSet = _pairs.keys();
+	private void loadKerningPairs(JSONObject pairs) {
+		Set<String> keysSet = pairs.keys();
 		Iterator<String> keys = keysSet.iterator();
 		while(keys.hasNext()) {
 			String key = keys.next();
-			float value = _pairs.getFloat(key);
+			float value = pairs.getFloat(key);
 
 			kerningPairs.put(key, value);
 		}
 	}
 	
-	void loadData(String _path) {
-		JSONObject data = loadJSONObject(_path);
+	private void loadData(String path) {
+		JSONObject data = loadJSONObject(path);
 
 		if (!data.isNull("name")) {
 			fontName = data.getString("name");
@@ -78,140 +310,11 @@ class PlotterText {
 		loadKerningPairs(data.getJSONObject("kerningPairs"));
 	}
 
-	void adjustKerning(String _char1, String _char2, float _adjustment) {
-		String pair = _char1 + _char2;
-		if(singleCase) {
-			pair = pair.toLowerCase();
-		}
-		if(kerningPairs.containsKey(pair)) {
-			float currentAdjustment = kerningPairs.get(pair);
-			kerningPairs.put(pair, currentAdjustment + _adjustment);
-		} else {
-			kerningPairs.put(pair, _adjustment);
-		}
-	}
-
-	float kerningForChars(String _char1, String _char2) {
-		String pair = _char1 + _char2;
-		if(singleCase) {
-			pair = pair.toLowerCase();
-		}
-		if(kerningPairs.containsKey(pair)) {
-			return kerningPairs.get(pair);
-		}
-		return 0;
-	}
-
-	void saveData() {
-		println("Saving font data...");
-		JSONObject data = new JSONObject();
-		data.setString("name", fontName);
-		data.setFloat("defaultSize", defaultSize);
-		data.setFloat("letterSpacing", letterSpacing);
-		data.setFloat("spaceWidth", spaceWidth);
-		data.setFloat("lineHeight", lineHeight);
-		data.setBoolean("singleCase", singleCase);
-
-		JSONObject chars = new JSONObject();
-		Set<String> keysSet = characters.keySet();
-		Iterator<String> keys = keysSet.iterator();
-		while(keys.hasNext()) {
-			String key = keys.next();
-			SVGCharacter character = characters.get(key);
-
-			// get the string value of the character (not unicode escaped):
-			String charString = String.valueOf(key.charAt(0));
-
-			chars.setJSONObject(charString, character.getData());
-		}
-		data.setJSONObject("chars", chars);
-
-	
-		JSONObject kerningPairsJSON = new JSONObject();
-		Set<String> kerningKeysSet = kerningPairs.keySet();
-		Iterator<String> kerningKeys = kerningKeysSet.iterator();
-		while(kerningKeys.hasNext()) {
-			String key = kerningKeys.next();
-			float value = kerningPairs.get(key);
-
-			kerningPairsJSON.setFloat(key, value);
-		}
-		data.setJSONObject("kerningPairs", kerningPairsJSON);
-
-		saveJSONObject(data, fontPath + "data.json");
-		println("DONE");
-	}
-
-	void setSize(float _size) {
-		scale = _size / defaultSize;
-	} 
-
-	float getCharWidth(char _char) {
-		SVGCharacter character = characters.get(String.valueOf(_char));
-		if(character != null) {
-			return character.width;
-		}
-		return 60;
-	}
-
-	void drawChar(char _char) {
-
-		SVGCharacter character = characters.get(String.valueOf(_char));
-		if(character != null) {
-			character.draw();
-		}
-	}
-
-	float getStringWidth(String _text) {
-		float maxWidth = 0;
-		float lineStartX = 0;
-		float lineWidth = 0;
-		
-		for (int i = 0; i < _text.length(); i++) {
-			char c = _text.charAt(i);
-			if(singleCase) {
-				c = Character.toLowerCase(c);
-			}
-
-			if (c == ' ') {
-				lineWidth += spaceWidth;
-			} else if (c == '\n') {
-				maxWidth = max(maxWidth, lineWidth);
-				lineWidth = 0;
-			} else {
-				float kernDist = 0;
-				if(i < _text.length() - 1) {
-					kernDist = kerningForChars(String.valueOf(c), String.valueOf(_text.charAt(i + 1)));
-				}
-				float charWidth = getCharWidth(c) + (letterSpacing * defaultSize) + kernDist;
-				lineWidth += charWidth;
-			}
-		}
-
-		return max(maxWidth, lineWidth) * scale;
-	}
-
-	void drawText(String _text) {
-		drawText(_text, 0, 0);
-	}
-
-	void drawText(String _text, float _x, float _y) {
-		float originalStroke = g.strokeWeight;
-		pushMatrix();
-			translate(_x, _y);
-			strokeWeight(originalStroke / scale);
-			scale(scale);
-			drawString(_text);
-		popMatrix();
-
-		strokeWeight(originalStroke);
-	}
-
-	protected void drawString(String _text) {
+	private void drawString(String text) {
 		float lineStartX = 0;
 		
-		for (int i = 0; i < _text.length(); i++) {
-			char c = _text.charAt(i);
+		for (int i = 0; i < text.length(); i++) {
+			char c = text.charAt(i);
 			if(singleCase) {
 				c = Character.toLowerCase(c);
 			}
@@ -225,8 +328,8 @@ class PlotterText {
 			} else {
 				drawChar(c);
 				float kernDist = 0;
-				if(i < _text.length() - 1) {
-					kernDist = kerningForChars(String.valueOf(c), String.valueOf(_text.charAt(i + 1)));
+				if(i < text.length() - 1) {
+					kernDist = kerningForChars(String.valueOf(c), String.valueOf(text.charAt(i + 1)));
 				}
 				float charWidth = getCharWidth(c) + (letterSpacing * defaultSize) + kernDist;
 				translate(charWidth, 0);
@@ -244,17 +347,10 @@ class SVGCharacter {
     float width = 60.0f;
     String filename;
     String key;
+    String fontPath = "";
 
-    SVGCharacter(String _key, PShape _shape, float _x, float _y, float _width){
-        shape = _shape;
-        x = _x;
-        y = _y;
-        width = _width;
-        key = _key;
-    }
-
-    SVGCharacter(String fontPath, JSONObject data, String _key) {
-        key = _key;
+    SVGCharacter(String fontPath, JSONObject data, String charKey) {
+        key = charKey;
         if(!data.isNull("filename")){
             filename = data.getString("filename");
             shape = loadShape(fontPath + filename);
@@ -271,6 +367,14 @@ class SVGCharacter {
             width = data.getFloat("width");
         }
         
+        this.fontPath = fontPath;
+    }
+
+    SVGCharacter(String fontPath, String filename, String charKey) {
+        key = charKey;
+        shape = loadShape(fontPath + filename);
+        shape.disableStyle();
+        this.fontPath = fontPath;
     }
 
     JSONObject getData() {
@@ -280,6 +384,12 @@ class SVGCharacter {
         data.setFloat("width", width);
         data.setString("filename", filename);
         return data;
+    }
+
+    void setFilename(String name) {
+        filename = name;
+        shape = loadShape(fontPath + filename);
+        shape.disableStyle();
     }
 
     void draw() {
