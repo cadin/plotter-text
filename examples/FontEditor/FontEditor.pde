@@ -48,7 +48,7 @@ SVGCharacter secondCharacter;
 float editorScale = 4;
 float editorMargin = 50;
 float editorHeight = editorMargin * 2;
-int targetChar;
+int topBarHeight = 20;
 
 int previewLineIndex = 0;
 int previewLines = 10;
@@ -66,18 +66,17 @@ Textlabel modeLabel;
 
 void setup() {
 	size(1440, 800);
+
 	plotterText = new PlotterText("../../fonts/astroTown/", 20);
-	noFill();
 	pixelDensity(displayDensity());
 
 	currentCharacter = plotterText.characters.get("a");
 	secondCharacter = plotterText.characters.get("a");
 
-	editorHeight = plotterText.defaultSize* editorScale + (editorMargin * 2) ;
-	previewPosition = editorHeight + 50;
+	editorHeight = plotterText.defaultSize* editorScale + (editorMargin * 2);
+	previewPosition = editorHeight + 50 + topBarHeight;
 
 	setupUI();
-
 }
 
 void setupUI() {
@@ -90,38 +89,35 @@ void setupUI() {
 		;
 	b.changeItem("position","selected",true);
 
-
 	ButtonBar b2 = cp5.addButtonBar("previewSize")
 		.setPosition(0, previewPosition)
-		.setSize(200, 20)
+		.setSize(195, 20)
 		.addItems(split("small medium large"," "))
 		;
 	b2.changeItem("large","selected",true);
 
 	ButtonBar b3 = cp5.addButtonBar("strokeSize")
-		.setPosition(210, previewPosition)
-		.setSize(200, 20)
+		.setPosition(205, previewPosition)
+		.setSize(195, 20)
 		.addItems(split("thin medium thick"," "))
 		;
 	b3.changeItem("medium","selected",true);
 
 	modeLabel = cp5.addTextlabel("label")
-                    .setText("ARROW KEYS ADJUST CHARACTER POSITION")
-                    .setPosition(50,editorHeight + 10)
-                    .setColorValue(0)
-                    ;
+		.setText("ARROW KEYS ADJUST CHARACTER POSITION")
+		.setPosition(50,editorHeight + topBarHeight + 10)
+		.setColorValue(0)
+		;
 	cp5.addTextlabel("label2")
-                    .setText("SHIFT OR ALT FOR MACRO/MICRO ADJUSTMENTS")
-                    .setPosition(50,editorHeight + 22)
-                    .setColorValue(150)
-                    ;
+		.setText("SHIFT OR ALT FOR MACRO/MICRO ADJUSTMENTS")
+		.setPosition(50,editorHeight + topBarHeight + 22)
+		.setColorValue(150)
+		;
 	cp5.addTextlabel("label3")
-                    .setText("PG UP/DOWN CYCLES PREVIEW TEXT")
-                    .setPosition(50,height - 30)
-                    .setColorValue(100)
-                    ;
-
-	
+		.setText("PG UP/DOWN CYCLES PREVIEW TEXT")
+		.setPosition(50,height - 30)
+		.setColorValue(100)
+		;
 
 	Button saveButton = cp5.addButton("save")
 		.setPosition(width -100, 0)
@@ -129,9 +125,9 @@ void setupUI() {
 		;
 }
 
+// BUTTON CALLBACKS
 void modeChange(int n) {
 	mode = n;
-
 	switch(mode) {
 		case MODE_POSITION:
 			modeLabel.setText("ARROW KEYS ADJUST CHARACTER POSITION");
@@ -151,15 +147,14 @@ void save() {
 
 void strokeSize(int n) {
 	int[] sizes = {1, 2, 4};
-
 	previewStroke =  sizes[n];
 }
 
 void previewSize(int n) {
 	int[] sizes = {10, 15, 20};
-
 	plotterText.setSize( sizes[n] );
 }
+
 
 void draw() {
 	background(255);
@@ -176,9 +171,6 @@ void drawEditor() {
 	pushMatrix();
 		translate(0, 20);
 		scale(editorScale);
-		// fill(250);
-		// noStroke();
-		// rect(0, 0, width / editorScale, plotterText.defaultSize + (editorMargin * 2) / editorScale);
 		noFill();
 		drawRulers();
 		if(currentCharacter != null) {
@@ -190,16 +182,16 @@ void drawEditor() {
 	popMatrix();
 }
 
+// draw some bars. The actual UI is drawn by ControlP5
 void drawUI() {
-	// draw some bars. The actual UI is drawn by ControlP5
 	noStroke();
 	fill(150);
 	rect(0, 0, width, 20);
 	rect(0, previewPosition, width, 20);
 
 	fill(250);
-	rect(0, editorHeight, width, previewPosition - editorHeight);
-	rect(0, height - 50, width, 50);
+	rect(0, editorHeight + topBarHeight, width, previewPosition - editorHeight - topBarHeight);
+	rect(0, height - 40, width, 40);
 }
 
 void drawRulers() {
@@ -216,30 +208,25 @@ void drawRulers() {
 	if(currentCharacter != null) {
 		line(currentCharacter.width + margin, 0, currentCharacter.width + margin, plotterText.defaultSize + (margin*2));	
 		if(mouseIsInEditorArea()) {
-			stroke(255, 0, 0, 100);
+			stroke(255, 0, 0, 50);
 			line(mouseX / editorScale, 0, mouseX / editorScale, plotterText.defaultSize + (margin*2));
 		}
 	}	
-
-
 }
 
 boolean mouseIsInEditorArea() {
 	float topRule = editorMargin / editorScale;;
 	float bottomRule = topRule + plotterText.defaultSize;
-
 	return mouseY < bottomRule * editorScale && mouseY > topRule * editorScale;
 }
 
-
-
-void drawLargeCharacter(SVGCharacter _character, float _x, float _y) {
+void drawLargeCharacter(SVGCharacter character, float x, float y) {
 	pushMatrix();
 		noFill();
-		translate(_x, _y);
+		translate(x, y);
 		strokeWeight(6 / editorScale);
 		stroke(0);
-		_character.draw();
+		character.draw();
 	popMatrix();
 }
 
@@ -263,14 +250,13 @@ String joinSampleText(int startIndex) {
 	}
 
 	return joined;
-
 }
 
 void drawPreviewText() {
 	String sampleText = joinSampleText(previewLineIndex);
 	strokeWeight(previewStroke);
 	stroke(0);
-	plotterText.drawText(sampleText, 10, previewPosition + 50);
+	plotterText.drawText(sampleText, 10, previewPosition + 40);
 }
 
 void mousePressed() {
@@ -291,7 +277,6 @@ void keyReleased() {
 		case ALT:
 			altIsDown = false;
 			break;
-
 	}
 }
 
@@ -322,7 +307,8 @@ void moveVertical(float amount) {
 
 void keyPressed() {
 
-	if(cntrlIsDown && keyCode == 83) { // CNTRL + S
+	// CNTRL + S to save
+	if(cntrlIsDown && keyCode == 83) { 
 		plotterText.saveData();
 		return;
 	}
@@ -340,12 +326,10 @@ void keyPressed() {
 			break;
 		case SHIFT:
 			shiftIsDown = true;
-			
 			break;
 		case ALT:
 			altIsDown = true;
 			break;
-
 		case LEFT: 
 			moveHorizontal(-moveDist);
 			break;
@@ -394,6 +378,7 @@ void keyPressed() {
 
 }
 
+// this is probably not a complete list
 boolean isPrintable(int code) {
 	return 
 		(code > 47 && code < 58)   || // number keys
