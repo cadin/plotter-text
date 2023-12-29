@@ -1,7 +1,4 @@
-// TODO: 
-// - make kerning easier (add UI, alt conflicts with alt+arrow)
-// - controls for scale (of editor and preview text)
-
+import controlP5.*;
 
 // https://typeheist.co/blog/sample-text-for-typeface-character-testing/
 String[] sampleTexts = {
@@ -48,77 +45,193 @@ boolean altIsDown = false;
 
 SVGCharacter currentCharacter;
 SVGCharacter secondCharacter;
-float editorScale = 5;
+float editorScale = 4;
 float editorMargin = 50;
-boolean isKerning = false;
+float editorHeight = editorMargin * 2;
 int targetChar;
 
 int previewLineIndex = 0;
-int previewLines = 12;
+int previewLines = 10;
+int previewStroke = 2;
+
+float previewPosition = editorHeight + 50;
+
+final int MODE_POSITION = 0;
+final int MODE_KERNING = 1;
+final int MODE_LETTERSPACING = 2;
+int mode = MODE_POSITION;
+
+ControlP5 cp5;
+Textlabel modeLabel;
 
 void setup() {
 	size(1440, 800);
 	plotterText = new PlotterText("../../fonts/astroTown/", 20);
 	noFill();
+	pixelDensity(displayDensity());
+
+	currentCharacter = plotterText.characters.get("a");
+	secondCharacter = plotterText.characters.get("a");
+
+	editorHeight = plotterText.defaultSize* editorScale + (editorMargin * 2) ;
+	previewPosition = editorHeight + 50;
+
+	setupUI();
+
+}
+
+void setupUI() {
+	cp5 = new ControlP5(this);
+
+	ButtonBar b = cp5.addButtonBar("modeChange")
+		.setPosition(0, 0)
+		.setSize(400, 20)
+		.addItems(split("position kerning letterspacing"," "))
+		;
+	b.changeItem("position","selected",true);
+
+
+	ButtonBar b2 = cp5.addButtonBar("previewSize")
+		.setPosition(0, previewPosition)
+		.setSize(200, 20)
+		.addItems(split("small medium large"," "))
+		;
+	b2.changeItem("large","selected",true);
+
+	ButtonBar b3 = cp5.addButtonBar("strokeSize")
+		.setPosition(210, previewPosition)
+		.setSize(200, 20)
+		.addItems(split("thin medium thick"," "))
+		;
+	b3.changeItem("medium","selected",true);
+
+	modeLabel = cp5.addTextlabel("label")
+                    .setText("ARROW KEYS ADJUST CHARACTER POSITION")
+                    .setPosition(50,editorHeight + 10)
+                    .setColorValue(0)
+                    ;
+	cp5.addTextlabel("label2")
+                    .setText("SHIFT OR ALT FOR MACRO/MICRO ADJUSTMENTS")
+                    .setPosition(50,editorHeight + 22)
+                    .setColorValue(150)
+                    ;
+	cp5.addTextlabel("label3")
+                    .setText("PG UP/DOWN CYCLES PREVIEW TEXT")
+                    .setPosition(50,height - 30)
+                    .setColorValue(100)
+                    ;
+
+	
+
+	Button saveButton = cp5.addButton("save")
+		.setPosition(width -100, 0)
+		.setSize(100, 20)
+		;
+}
+
+void modeChange(int n) {
+	mode = n;
+
+	switch(mode) {
+		case MODE_POSITION:
+			modeLabel.setText("ARROW KEYS ADJUST CHARACTER POSITION");
+			break;
+		case MODE_KERNING:
+			modeLabel.setText("ARROW KEYS ADJUST KERNING");
+			break;
+		case MODE_LETTERSPACING:
+			modeLabel.setText("ARROW KEYS ADJUST GLOBAL LETTER SPACING");
+			break;
+	}
+}
+
+void save() {
+	plotterText.saveData();
+}
+
+void strokeSize(int n) {
+	int[] sizes = {1, 2, 4};
+
+	previewStroke =  sizes[n];
+}
+
+void previewSize(int n) {
+	int[] sizes = {10, 15, 20};
+
+	plotterText.setSize( sizes[n] );
 }
 
 void draw() {
 	background(255);
-	drawEditor();
-	drawSampleText();
+	noFill();
+	if(mode != MODE_LETTERSPACING) {
+		drawEditor();
+	}
+	drawPreviewText();
+
 	drawUI();
 }
 
 void drawEditor() {
 	pushMatrix();
-	scale(editorScale);
-	drawRulers();
-	if(currentCharacter != null) {
-		drawCurrentCharacter(currentCharacter);
-		if(isKerning && secondCharacter != null ) {
-			drawSecondCharacter(secondCharacter);
-			drawTargetHighlight();
+		translate(0, 20);
+		scale(editorScale);
+		// fill(250);
+		// noStroke();
+		// rect(0, 0, width / editorScale, plotterText.defaultSize + (editorMargin * 2) / editorScale);
+		noFill();
+		drawRulers();
+		if(currentCharacter != null) {
+			drawCurrentCharacter(currentCharacter);
+			if(mode == MODE_KERNING && secondCharacter != null ) {
+				drawSecondCharacter(secondCharacter);
+			}
 		}
-	}
 	popMatrix();
+}
+
+void drawUI() {
+	// draw some bars. The actual UI is drawn by ControlP5
+	noStroke();
+	fill(150);
+	rect(0, 0, width, 20);
+	rect(0, previewPosition, width, 20);
+
+	fill(250);
+	rect(0, editorHeight, width, previewPosition - editorHeight);
+	rect(0, height - 50, width, 50);
 }
 
 void drawRulers() {
 	float margin = editorMargin / editorScale;
+	float topRule = margin;
+	float bottomRule = margin + plotterText.defaultSize;
+
 	stroke(0, 255, 255);
 	strokeWeight(1/editorScale);
-	line(0, margin, width, margin);
-	line(0, plotterText.defaultSize + margin, width, plotterText.defaultSize + margin);
+	line(0, topRule, width, topRule);
+	line(0, bottomRule, width, bottomRule);
 	line(margin, 0, margin, plotterText.defaultSize + (margin*2));
 	stroke(255, 0, 0);
 	if(currentCharacter != null) {
 		line(currentCharacter.width + margin, 0, currentCharacter.width + margin, plotterText.defaultSize + (margin*2));	
+		if(mouseIsInEditorArea()) {
+			stroke(255, 0, 0, 100);
+			line(mouseX / editorScale, 0, mouseX / editorScale, plotterText.defaultSize + (margin*2));
+		}
 	}	
-}
 
-void drawTargetHighlight() {
-	float margin = editorMargin / editorScale;
-	float w;
-	float x;
-
-	if(targetChar == 1) {
-		w = currentCharacter.width;
-		x = margin;
-	} else {
-		w = secondCharacter.width;
-		x = margin + currentCharacter.width + plotterText.letterSpacing + plotterText.kerningForChars(currentCharacter.key, secondCharacter.key);
-	}
-
-	pushMatrix();
-		fill(0, 255, 255, 100);
-		noStroke();
-		translate(x, margin + plotterText.defaultSize);
-		rect(0, 0, w, 3);
-	popMatrix();
-
-	noFill();
 
 }
+
+boolean mouseIsInEditorArea() {
+	float topRule = editorMargin / editorScale;;
+	float bottomRule = topRule + plotterText.defaultSize;
+
+	return mouseY < bottomRule * editorScale && mouseY > topRule * editorScale;
+}
+
+
 
 void drawLargeCharacter(SVGCharacter _character, float _x, float _y) {
 	pushMatrix();
@@ -140,9 +253,6 @@ void drawSecondCharacter(SVGCharacter character) {
 	drawLargeCharacter(character, margin + currentCharacter.width + (plotterText.letterSpacing * plotterText.defaultSize) + plotterText.kerningForChars(currentCharacter.key, secondCharacter.key), margin);
 }
 
-void drawUI() {
-
-}
 
 String joinSampleText(int startIndex) {
 	String joined = "";
@@ -156,15 +266,16 @@ String joinSampleText(int startIndex) {
 
 }
 
-void drawSampleText() {
+void drawPreviewText() {
 	String sampleText = joinSampleText(previewLineIndex);
-	strokeWeight(2);
+	strokeWeight(previewStroke);
 	stroke(0);
-	plotterText.drawText(sampleText, 10, height - 370);
+	plotterText.drawText(sampleText, 10, previewPosition + 50);
 }
 
 void mousePressed() {
 	if(currentCharacter == null) return;
+	if(!mouseIsInEditorArea()) return;
 	float charWidth = mouseX / editorScale - editorMargin / editorScale;
 	currentCharacter.width = charWidth;
 }
@@ -185,13 +296,27 @@ void keyReleased() {
 }
 
 void moveHorizontal(float amount) {
-	if(isKerning && secondCharacter != null) {
+	if(mode == MODE_KERNING) {
+		if(secondCharacter == null) return;
 		plotterText.adjustKerning(currentCharacter.key, secondCharacter.key, amount);
 		return;
-	}
+	} 
+	
+	if(mode == MODE_LETTERSPACING) {
+		plotterText.letterSpacing += amount / 100;
+		return;
+	} 
 
 	if(currentCharacter != null) {
 		currentCharacter.x += amount;
+	}
+}
+
+void moveVertical(float amount) {
+	if(mode != MODE_POSITION) return;
+
+	if(currentCharacter != null) {
+		currentCharacter.y += amount;
 	}
 }
 
@@ -212,22 +337,12 @@ void keyPressed() {
 	switch(keyCode) {
 		case CONTROL:
 			cntrlIsDown = true;
-			if(isKerning){
-				targetChar ++;
-				if(targetChar > 2){
-					targetChar = 1;
-				}
-			}
 			break;
 		case SHIFT:
 			shiftIsDown = true;
 			
 			break;
 		case ALT:
-			isKerning = !isKerning;
-			if(isKerning) {
-				targetChar = 2;
-			}
 			altIsDown = true;
 			break;
 
@@ -238,15 +353,10 @@ void keyPressed() {
 			moveHorizontal(moveDist);
 			break;
 		case UP:
-			if(currentCharacter != null) {
-				currentCharacter.y -= moveDist;
-			}
+			moveVertical(-moveDist);
 			break;
 		case DOWN:
-			if(currentCharacter != null) {
-				currentCharacter.y += moveDist;
-			}
-
+			moveVertical(moveDist);
 			break;
 		case 33: // PAGE UP
 			previewLineIndex -= previewLines;
@@ -265,9 +375,16 @@ void keyPressed() {
 
 	// printable characters
 	if(isPrintable(keyCode)) {
-		if(isKerning && targetChar == 2) {
-			secondCharacter = plotterText.characters.get(String.valueOf(key));
-			println("Second character: " + key);
+		if(mode == MODE_LETTERSPACING) return;
+		if(mode == MODE_KERNING) {
+			if(secondCharacter == null) {
+				secondCharacter = plotterText.characters.get(String.valueOf(key));
+				println("Second character: " + key);
+			} else {
+				secondCharacter = null;
+				currentCharacter = plotterText.characters.get(String.valueOf(key));
+				println("Current character: " + key);
+			}
 		} else {
 			currentCharacter = plotterText.characters.get(String.valueOf(key));
 			println("Current character: " + key);
