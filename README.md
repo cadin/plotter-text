@@ -32,7 +32,7 @@ PlotterText pt;
 
 void setup() {
   size(300, 200);
-  pt = new PlotterText("fonts/astroTown/", 20);
+  pt = new PlotterText("astroTown/", 20);
 }
 
 void draw() {
@@ -44,22 +44,59 @@ void draw() {
 
 ## Usage
 
+### Instantiation
+
+_PlotterText_ **new PlotterText**( _String_ fontPath, [ _float_ size ] )
+
+Create an instance of the PlotterText class.  
+`fontPath` specifies the location of your font's folder (relative to your sketch's `data` folder).
+`size` is the desired display size in pixels.
+
 ### Drawing Text
 
-`drawText(text)`
-`drawText(text, x, y)`
+_void_ **drawText**( _String_ text, [ _float_ x, _float_ y ] )
 
-`drawTextCentered(text, x, y)`
+Draw text to the screen.  
+`x` and `y` specify the position of the top left of the text.
+
+_void_ **drawTextCentered**( _String_ text, [ _float_ x, _float_ y ] )
+
+Draw text to the screen, horizontally centered.
+`x` and `y` specify the position of the top center of the text.
 
 ### Font Properties
 
-`setSize(size)`
+_float_ **letterSpacing**
 
-### Saving
+The amount of additional space to add between each letter.  
+Expressed as a percentage of the character size.
 
-`saveData()`
+_float_ **lineHeight**
 
-### Save to SVG
+The amount of vertical space given to each line in multiline text.  
+Expressed as a percentage of the character size.
+
+_float_ **spaceWidth**
+
+The width of a space character.  
+Expressed as a percentage of the character size.
+
+_void_ **setSize**( _float_ size )
+
+Set the display height of your font. Change this in between calls to `drawText` to create text of different sizes.
+
+### Utility
+
+_float_ **getStringWidth**( _String_ text )
+
+Calculate the width of a string using your font at its current size without drawing to the screen.
+
+### Modify and Save
+
+Additional methods are available to modify font data and save it to disk.  
+Check [PlotterText.pde](src/PlotterText.pde) for details.
+
+## Saving to SVG
 
 ## Build from Source
 

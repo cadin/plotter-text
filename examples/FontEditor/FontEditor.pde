@@ -279,7 +279,7 @@ void drawCurrentCharacter(SVGCharacter character) {
 
 void drawSecondCharacter(SVGCharacter character) {
 	float margin = editorMargin / editorScale;
-	drawLargeCharacter(character, margin + currentCharacter.width + (plotterText.letterSpacing * plotterText.defaultSize) + plotterText.kerningForChars(currentCharacter.key, secondCharacter.key), margin);
+	drawLargeCharacter(character, margin + currentCharacter.width + (plotterText.letterSpacing * plotterText.defaultSize) + plotterText.getKerningForChars(currentCharacter.key, secondCharacter.key), margin);
 }
 
 void drawPreviewText() {

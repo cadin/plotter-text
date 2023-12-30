@@ -16,7 +16,7 @@ class PlotterText {
 	/**
 	 * The width of a space character
 	 */
-	float spaceWidth = 44;
+	float spaceWidth = 0.73;
 	
 	/**
 	 * The scale of the font (defaultSize * scale = actual size)
@@ -26,7 +26,7 @@ class PlotterText {
 	/**
 	 * Controls linespacing in multi-line text
 	 */
-	float lineHeight = 80;
+	float lineHeight = 1.2;
 
 	/**
 	 * If true, all characters will be treated as lowercase
@@ -56,7 +56,7 @@ class PlotterText {
 
 	/**
 	 * Creates a new PlotterText object
-	 * @param path The path to the font data folder (relative to the sketch folder)
+	 * @param path The path to the font data folder (relative to the data folder)
 	 * @param size The display size of the font (height of the SVG glyphs)
 	 */
 	PlotterText(String path, float size) {
@@ -98,7 +98,7 @@ class PlotterText {
 	 * @param char2 The second character in the pair
 	 * @param adjustment The amount to adjust the kerning by
 	 */
-	float kerningForChars(String char1, String char2) {
+	float getKerningForChars(String char1, String char2) {
 		String pair = char1 + char2;
 		if(singleCase) pair = pair.toLowerCase();
 		
@@ -193,14 +193,14 @@ class PlotterText {
 			}
 
 			if (c == ' ') {
-				lineWidth += spaceWidth;
+				lineWidth += spaceWidth * defaultSize;
 			} else if (c == '\n') {
 				maxWidth = max(maxWidth, lineWidth);
 				lineWidth = 0;
 			} else {
 				float kernDist = 0;
 				if(i < text.length() - 1) {
-					kernDist = kerningForChars(String.valueOf(c), String.valueOf(text.charAt(i + 1)));
+					kernDist = getKerningForChars(String.valueOf(c), String.valueOf(text.charAt(i + 1)));
 				}
 				float charWidth = getCharWidth(c) + (letterSpacing * defaultSize) + kernDist;
 				lineWidth += charWidth;
@@ -234,6 +234,10 @@ class PlotterText {
 		popMatrix();
 
 		strokeWeight(originalStroke);
+	}
+
+	void drawTextCentered(String text) {
+		drawTextCentered(text, 0, 0);
 	}
 
 	void drawTextCentered(String text, float x, float y) {
@@ -332,16 +336,16 @@ class PlotterText {
 			}
 
 			if (c == ' ') {
-				translate(spaceWidth, 0);
-				lineStartX -= spaceWidth;
+				translate(spaceWidth * defaultSize, 0);
+				lineStartX -= spaceWidth * defaultSize;
 			} else if (c == '\n') {
-				translate(lineStartX, lineHeight);
+				translate(lineStartX, lineHeight * defaultSize);
 				lineStartX = 0;
 			} else {
 				drawChar(c);
 				float kernDist = 0;
 				if(i < text.length() - 1) {
-					kernDist = kerningForChars(String.valueOf(c), String.valueOf(text.charAt(i + 1)));
+					kernDist = getKerningForChars(String.valueOf(c), String.valueOf(text.charAt(i + 1)));
 				}
 				float charWidth = getCharWidth(c) + (letterSpacing * defaultSize) + kernDist;
 				translate(charWidth, 0);
