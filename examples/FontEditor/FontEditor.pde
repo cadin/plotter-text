@@ -35,7 +35,12 @@ String[] sampleTexts = {
 	
 	"AC AT AVA AWA AYA AV AW AY AZ CT CYC FA FE FO KV KW KY LO LV LY NG",
 	"OD PA PA PE PO TA TA TE TI TO TR TS TU TY UA VA VA VE VO VR VU",
-	"VY WA WO WA WE WR WV WY YS"
+	"VY WA WO WA WE WR WV WY YS",
+
+    "$1.50 $2.25 $3.00 $4.50 $5.25 $6.00 $7.75 $8.50 $9.25 $0.00",
+	"111 222 333 444 555 666 777 888 999 000",
+	"4,321 3,210 2,109 1,098 9,876 8,765 7,654 6,543 5,432 4,321",
+
 };
 
 PlotterText plotterText;
@@ -131,6 +136,7 @@ void setupUI() {
 		.setLabel("SAVE FONT")
 		.setPosition(width -100, 0)
 		.setSize(100, 20)
+		.setColorBackground(color(255, 0, 0))
 		;
 	Button loadButton = cp5.addButton("loadGlyph")
 		.setLabel("LOAD GLYPH")
@@ -183,17 +189,6 @@ void previewSize(int n) {
 	plotterText.setSize( sizes[n] );
 }
 
-
-void draw() {
-	background(255);
-	noFill();
-	if(mode != MODE_LETTERSPACING) {
-		drawEditor();
-	}
-	drawPreviewText();
-	drawUI();
-}
-
 // Callback for selectInput()
 public void onGlyphSelected(File file) {
 	if(file == null) return;
@@ -205,6 +200,18 @@ public void onGlyphSelected(File file) {
 		println("Error loading glyph");
 	}
 }
+
+// DRAWING
+void draw() {
+	background(255);
+	noFill();
+	if(mode != MODE_LETTERSPACING) {
+		drawEditor();
+	}
+	drawPreviewText();
+	drawUI();
+}
+
 
 void drawEditor() {
 	pushMatrix();
@@ -256,10 +263,6 @@ void drawRulers() {
 	}	
 }
 
-boolean mouseIsInEditorArea() {
-	return mouseY < editorHeight + topBarHeight && mouseY > topBarHeight + editorMargin;
-}
-
 void drawLargeCharacter(SVGCharacter character, float x, float y) {
 	pushMatrix();
 		noFill();
@@ -280,6 +283,16 @@ void drawSecondCharacter(SVGCharacter character) {
 	drawLargeCharacter(character, margin + currentCharacter.width + (plotterText.letterSpacing * plotterText.defaultSize) + plotterText.kerningForChars(currentCharacter.key, secondCharacter.key), margin);
 }
 
+void drawPreviewText() {
+	String sampleText = joinSampleText(previewLineIndex);
+	strokeWeight(previewStroke);
+	stroke(0);
+	plotterText.drawText(sampleText, 10, previewPosition + 40);
+}
+
+boolean mouseIsInEditorArea() {
+	return mouseY < editorHeight + topBarHeight && mouseY > topBarHeight + editorMargin;
+}
 
 String joinSampleText(int startIndex) {
 	String joined = "";
@@ -290,13 +303,6 @@ String joinSampleText(int startIndex) {
 	}
 
 	return joined;
-}
-
-void drawPreviewText() {
-	String sampleText = joinSampleText(previewLineIndex);
-	strokeWeight(previewStroke);
-	stroke(0);
-	plotterText.drawText(sampleText, 10, previewPosition + 40);
 }
 
 void mousePressed() {

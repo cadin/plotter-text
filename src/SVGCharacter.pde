@@ -54,6 +54,7 @@ class SVGCharacter {
     void draw() {
         pushMatrix();
         translate(x, y);
+        strokeJoin(ROUND);
         shape(shape);
         popMatrix();
     }

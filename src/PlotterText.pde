@@ -1,7 +1,7 @@
 import java.util.Iterator;
 import java.util.Set;
 
-public class PlotterText {
+class PlotterText {
 
 	/**
 	 * path to the font data folder (relative to the sketch folder)
@@ -259,7 +259,6 @@ public class PlotterText {
 
 	// Private methods
 	// --------------------------------
-
 	private void loadChars(JSONObject chars) {
 		Set<String> keysSet = chars.keys();
 		Iterator<String> keys = keysSet.iterator();
