@@ -44,6 +44,23 @@ void draw() {
 
 ## Usage
 
+### Drawing Text
+
+`drawText(text)`
+`drawText(text, x, y)`
+
+`drawTextCentered(text, x, y)`
+
+### Font Properties
+
+`setSize(size)`
+
+### Saving
+
+`saveData()`
+
+### Save to SVG
+
 ## Build from Source
 
 The build script for this project (`build.sh`) simply copies the classes from `src` into a single file in the `dist` folder.
@@ -53,6 +70,14 @@ cd [plotter-text]
 ./build.sh
 ```
 
+## Support
+
+This is a personal project and is mostly unsupported, but I'm happy to hear feedback or answer questions.
+
 ## License
 
 This project is licensed under the Unlicense - see the [LICENSE](LICENSE) file for details.
+
+---
+
+👨🏻‍🦲❤️🛠
