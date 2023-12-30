@@ -13,11 +13,11 @@ Generate dynamic single-stroke text in Processing. Save to SVG for clean pen plo
 
 ### Installation
 
-**1. Copy the PlotterText Class to Your Project**
+**1. Add the PlotterText class to your project**
 
 Copy the `PlotterText.pde` file from the [`dist`](dist/) folder into the folder for your Processing sketch.
 
-**2. Copy the Font Files (or Create Your Own)**
+**2. Add the font files**
 
 Copy the entire [`astroTown`](fonts/astroTown/) font folder into your sketch's `data` folder.
 
