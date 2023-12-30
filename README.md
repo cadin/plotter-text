@@ -8,19 +8,20 @@ Generate dynamic single-stroke text in Processing. Save to SVG for clean pen plo
 
 ### Requirements
 
-1. [Processing 4](https://processing.org/download/)
+- [Processing 4](https://processing.org/download/)
+- The [ControlP5](https://github.com/sojamo/controlp5) library is required to run the Font Editor sketch.
 
 ### Installation
 
-#### Copy the PlotterText Class to Your Project
+**1. Copy the PlotterText Class to Your Project**
 
-Copy the `PlotterText.pde` file from the `dist` folder into the folder for your Processing sketch.
+Copy the `PlotterText.pde` file from the [`dist`](dist/) folder into the folder for your Processing sketch.
 
-#### Copy the Font Files (or Create Your Own)
+**2. Copy the Font Files (or Create Your Own)**
 
-Copy the entire [`astroTown`](/fonts/astroTown/) font folder into your sketch's `data` folder.
+Copy the entire [`astroTown`](fonts/astroTown/) font folder into your sketch's `data` folder.
 
-If you want to create your own font, you'll need an SVG file for each character and a `data.json` file to specify font coordinates. Use the [Font Editor](examples/FontEditor/) in the `examples` folder to edit character positions and kerning pairs.
+If you want to create your own font, you'll need an SVG file for each character and a `data.json` file to specify font coordinates. Use the [Font Editor](examples/FontEditor/) in the [`examples`](examples/) folder to edit character positions and kerning pairs.
 
 ### Example Sketch
 
@@ -31,13 +32,13 @@ If you want to create your own font, you'll need an SVG file for each character 
 PlotterText pt;
 
 void setup() {
-  size(300, 200);
-  pt = new PlotterText("astroTown/", 20);
+	size(300, 200);
+	pt = new PlotterText("fonts/astroTown/", 20);
 }
 
 void draw() {
-  background(255);
-  pt.drawText("Hello world!", 10, 10);
+	background(255);
+	pt.drawText("Hello world!", 10, 10);
 }
 
 ```
@@ -94,9 +95,40 @@ Calculate the width of a string using your font at its current size without draw
 ### Modify and Save
 
 Additional methods are available to modify font data and save it to disk.  
-Check [PlotterText.pde](src/PlotterText.pde) for details.
+Check [`PlotterText.pde`](src/PlotterText.pde) for details.
 
 ## Saving to SVG
+
+The SVG library makes it possible to write SVG files directly from Processing.
+Any PlotterText drawn to the screen while saving will be added to the exported SVG.
+
+### Example sketch:
+
+```java
+import processing.svg.*;
+
+PlotterText pt;
+
+void setup() {
+	size(400, 400);
+	pt = new PlotterText("fonts/astroTown", 12);
+	noLoop();
+}
+
+void draw() {
+	beginRecord(SVG, "filename.svg");
+
+	// draw some text
+	pt.drawText("Hello world", 10, 10);
+
+	// other vector drawing
+	line(0, 0, width/2, height);
+
+	endRecord();
+}
+```
+
+For more examples, see the [SVG Export](https://processing.org/reference/libraries/svg/index.html) page on the Processing site.
 
 ## Build from Source
 
