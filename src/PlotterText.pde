@@ -236,6 +236,19 @@ class PlotterText {
 		strokeWeight(originalStroke);
 	}
 
+	void drawTextCentered(String text, float x, float y) {
+		float originalStroke = g.strokeWeight;
+		float textWidth = getStringWidth(text);
+		pushMatrix();
+			translate(x - textWidth / 2, y);
+			strokeWeight(originalStroke / scale);
+			scale(scale);
+			drawString(text);
+		popMatrix();
+
+		strokeWeight(originalStroke);
+	}
+
 	/**
 	 * Add a new SVG glyph to the font
 	 * @param filename The filename of the SVG file to load

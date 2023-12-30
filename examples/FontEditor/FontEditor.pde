@@ -136,7 +136,6 @@ void setupUI() {
 		.setLabel("SAVE FONT")
 		.setPosition(width -100, 0)
 		.setSize(100, 20)
-		.setColorBackground(color(255, 0, 0))
 		;
 	Button loadButton = cp5.addButton("loadGlyph")
 		.setLabel("LOAD GLYPH")
