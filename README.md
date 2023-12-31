@@ -1,15 +1,15 @@
 # plotter-text
 
-Generate dynamic single-stroke text in Processing. Save to SVG for clean pen plotter output.
+Generate dynamic single-stroke text in Processing. Save to SVG for clean pen plotter input.
 
-![banner](banner.png)
+![banner](banner.jpg)
 
 ## Getting Started
 
 ### Requirements
 
-- [Processing 4](https://processing.org/download/)
-- The [ControlP5](https://github.com/sojamo/controlp5) library is required to run the Font Editor sketch.
+-   [Processing 4](https://processing.org/download/)
+-   The [ControlP5](https://github.com/sojamo/controlp5) library is required to run the Font Editor sketch.
 
 ### Installation
 
