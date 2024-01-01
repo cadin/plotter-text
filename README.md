@@ -6,6 +6,8 @@ Generate dynamic single-stroke text in Processing. Save to SVG for clean pen plo
 
 ## Getting Started
 
+### 📺 [Video Walkthrough](https://youtu.be/gfdROgQhm8M)
+
 ### Requirements
 
 -   [Processing 4](https://processing.org/download/)
