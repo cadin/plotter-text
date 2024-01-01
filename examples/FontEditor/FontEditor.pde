@@ -41,6 +41,15 @@ String[] sampleTexts = {
 	"111 222 333 444 555 666 777 888 999 000",
 	"4,321 3,210 2,109 1,098 9,876 8,765 7,654 6,543 5,432 4,321",
 
+	"123g butter, softened",
+	"456g (1 1/2 cups) icing sugar",
+	"78ml (1/4 cup) gin",
+	"9 tbsp tonic water",
+	"10 tsp finely grated lemon rind",
+	"1 3/4 x 987g madeira cakes",
+	"1 1/3 x 654g packets white chocolate melts",
+	"1 2/3 cup desiccated coconut",
+	"1 1/3 cup milk"
 };
 
 PlotterText plotterText;
