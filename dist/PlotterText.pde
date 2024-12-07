@@ -236,6 +236,25 @@ class PlotterText {
 		strokeWeight(originalStroke);
 	}
 
+	/**
+	 * Draws the specified string at the specified position and width
+	 * @param text The string to draw
+	 * @param x The x position to draw the string at
+	 * @param y The y position to draw the string at
+	 * @param w The width to constrain the text to
+	 */
+	void drawText(String text, float x, float y, float w) {
+		float originalStroke = g.strokeWeight;
+		pushMatrix();
+			translate(x, y);
+			strokeWeight(originalStroke / scale);
+			scale(scale);
+			drawStringWithinWidth(text, w);
+		popMatrix();
+
+		strokeWeight(originalStroke);
+	}
+
 	void drawTextCentered(String text) {
 		drawTextCentered(text, 0, 0);
 	}
@@ -353,6 +372,26 @@ class PlotterText {
 			}
 		}
 	}
+
+
+	private void drawStringWithinWidth(String text, float w) {
+		float lineStartX = 0;
+		String[] words = text.split(" ");
+		float lineLength = 0;
+
+		for(int i = 0; i < words.length; i++) {
+			String word = words[i] + " ";
+			float wordWidth = getStringWidth(word);
+
+			if(lineStartX + wordWidth > w) {
+				translate(-lineStartX / scale, lineHeight * defaultSize);
+				lineStartX = 0;
+			}
+			drawString(word);
+			lineStartX += wordWidth;
+		}
+	}
+
 }
 
 class SVGCharacter {

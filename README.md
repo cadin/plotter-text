@@ -62,10 +62,11 @@ _void_ **drawText**( _String_ text, [ _float_ x, _float_ y ] )
 Draw text to the screen.  
 `x` and `y` specify the position of the top left of the text.
 
-_void_ **drawTextCentered**( _String_ text, [ _float_ x, _float_ y ] )
+_void_ **drawTextCentered**( _String_ text, [[ _float_ x, _float_ y ], _float_ w ])
 
 Draw text to the screen, horizontally centered.
 `x` and `y` specify the position of the top center of the text.
+`w` specifies the width at which the text wraps to a new line.
 
 ### Font Properties
 

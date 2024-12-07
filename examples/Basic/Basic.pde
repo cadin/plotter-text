@@ -14,4 +14,8 @@ void draw() {
 	pt.setSize(30);
 	strokeWeight(3);
 	pt.drawTextCentered("World!", width/2, 40);
+
+	pt.setSize(10);
+	strokeWeight(1);
+	pt.drawText("This is some text that is long enough that it should break into multiple lines", 10, 100, 200);
 }
