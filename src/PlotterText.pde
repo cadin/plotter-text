@@ -375,21 +375,32 @@ class PlotterText {
 
 
 	private void drawStringWithinWidth(String text, float w) {
-		float lineStartX = 0;
-		String[] words = text.split(" ");
+		String[] lines = text.split("\n");
+
+		for (int i = 0; i < lines.length; i++) {
+			String line = lines[i];
+			float lineLength = drawLineWithinWidth(line, w);
+			translate(-lineLength / scale, lineHeight * defaultSize);
+		}
+	}
+
+	private float drawLineWithinWidth(String text, float w) {
 		float lineLength = 0;
+		String[] words = text.split(" ");
 
 		for(int i = 0; i < words.length; i++) {
 			String word = words[i] + " ";
 			float wordWidth = getStringWidth(word);
 
-			if(lineStartX + wordWidth > w) {
-				translate(-lineStartX / scale, lineHeight * defaultSize);
-				lineStartX = 0;
+			if(lineLength + wordWidth > w) {
+				translate(-lineLength / scale, lineHeight * defaultSize);
+				lineLength = 0;
 			}
 			drawString(word);
-			lineStartX += wordWidth;
+			lineLength += wordWidth;
 		}
+
+		return lineLength;
 	}
 
 }
