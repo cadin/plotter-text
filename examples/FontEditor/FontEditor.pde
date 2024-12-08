@@ -440,5 +440,6 @@ boolean isPrintable(int code) {
 		(code > 64 && code < 91)   || // letter keys
 		(code > 95 && code < 112)  || // numpad keys
 		(code > 43 && code < 62)   || // ;=,-./` (in order)
+    (code == 192)              || // `~
 		(code > 90 && code < 94);   // [\]' (in order)
 }
