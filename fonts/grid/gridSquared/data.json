@@ -1,0 +1,437 @@
+{
+  "singleCase": true,
+  "defaultSize": 58,
+  "name": "Grid-Squared",
+  "letterSpacing": 0.2931034564971924,
+  "lineHeight": 1.2931034564971924,
+  "kerningPairs": {"ly": -25.000001907348633},
+  "spaceWidth": 0.8620689511299133,
+  "chars": {
+    "\u2013": {
+      "filename": "endash.svg",
+      "x": -2.5,
+      "width": 45.5,
+      "y": -15
+    },
+    "\u2014": {
+      "filename": "emdash.svg",
+      "x": -2.5,
+      "width": 58,
+      "y": -15
+    },
+    "\u2018": {
+      "filename": "leftsinglequote.svg",
+      "x": -2.5,
+      "width": 20.5,
+      "y": -15
+    },
+    "\u2019": {
+      "filename": "rightsinglequote.svg",
+      "x": -2.5,
+      "width": 20.5,
+      "y": -15
+    },
+    "\u201c": {
+      "filename": "leftquote.svg",
+      "x": -2.5,
+      "width": 58,
+      "y": -15
+    },
+    "\u201d": {
+      "filename": "rightquote.svg",
+      "x": -2.5,
+      "width": 58,
+      "y": -15
+    },
+    "!": {
+      "filename": "exclamation.svg",
+      "x": -2.5,
+      "width": 20.5,
+      "y": -15
+    },
+    "\u2022": {
+      "filename": "bullet.svg",
+      "x": -2.5,
+      "width": 33,
+      "y": -15
+    },
+    "#": {
+      "filename": "hash.svg",
+      "x": -2.5,
+      "width": 83,
+      "y": -15
+    },
+    "$": {
+      "filename": "dollar.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "'": {
+      "filename": "rightsinglequote.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "(": {
+      "filename": "leftparen.svg",
+      "x": -2.5,
+      "width": 33,
+      "y": -15
+    },
+    ")": {
+      "filename": "rightparen.svg",
+      "x": -2.5,
+      "width": 33,
+      "y": -15
+    },
+    "©": {
+      "filename": "copyright.svg",
+      "x": -2.5,
+      "width": 20.5,
+      "y": -15
+    },
+    "*": {
+      "filename": "asterisk.svg",
+      "x": -2.5,
+      "width": 33,
+      "y": -15
+    },
+    "+": {
+      "filename": "plus.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    ",": {
+      "filename": "comma.svg",
+      "x": -15,
+      "width": 20.5,
+      "y": -15
+    },
+    "-": {
+      "filename": "dash.svg",
+      "x": -2.5,
+      "width": 45.5,
+      "y": -15
+    },
+    ".": {
+      "filename": "period.svg",
+      "x": -2.5,
+      "width": 20.5,
+      "y": -15
+    },
+    "/": {
+      "filename": "slash.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "0": {
+      "filename": "0.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "1": {
+      "filename": "1.svg",
+      "x": -2.5,
+      "width": 33,
+      "y": -15
+    },
+    "2": {
+      "filename": "2.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "3": {
+      "filename": "3.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "4": {
+      "filename": "4.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "5": {
+      "filename": "5.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "6": {
+      "filename": "6.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "7": {
+      "filename": "7.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "8": {
+      "filename": "8.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "9": {
+      "filename": "9.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    ":": {
+      "filename": "colon.svg",
+      "x": -2.5,
+      "width": 20.5,
+      "y": -15
+    },
+    ";": {
+      "filename": "semicolon.svg",
+      "x": -15,
+      "width": 33,
+      "y": -15
+    },
+    "<": {
+      "filename": "lessthan.svg",
+      "x": -2.5,
+      "width": 33,
+      "y": -15
+    },
+    "=": {
+      "filename": "equal.svg",
+      "x": -2.5,
+      "width": 45.5,
+      "y": -15
+    },
+    ">": {
+      "filename": "greaterthan.svg",
+      "x": -2.5,
+      "width": 33,
+      "y": -15
+    },
+    "?": {
+      "filename": "question.svg",
+      "x": -2.5,
+      "width": 58,
+      "y": -15
+    },
+    "@": {
+      "filename": "at.svg",
+      "x": -2.5,
+      "width": 95.5,
+      "y": -15
+    },
+    "[": {
+      "filename": "leftbracket.svg",
+      "x": -2.5,
+      "width": 33,
+      "y": -15
+    },
+    "]": {
+      "filename": "rightbracket.svg",
+      "x": -2.5,
+      "width": 33,
+      "y": -15
+    },
+    "_": {
+      "filename": "underscore.svg",
+      "x": -2.5,
+      "width": 58,
+      "y": -15
+    },
+    "`": {
+      "filename": "backtick.svg",
+      "x": -2.5,
+      "width": 20.5,
+      "y": -15
+    },
+    "a": {
+      "filename": "A.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "b": {
+      "filename": "B.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "c": {
+      "filename": "C.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "d": {
+      "filename": "D.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "e": {
+      "filename": "E.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "f": {
+      "filename": "F.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "g": {
+      "filename": "G.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "h": {
+      "filename": "H.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "i": {
+      "filename": "I.svg",
+      "x": -2.5,
+      "width": 45.5,
+      "y": -15
+    },
+    "j": {
+      "filename": "J.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "k": {
+      "filename": "K.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "l": {
+      "filename": "L.svg",
+      "x": -2.5,
+      "width": 58,
+      "y": -15
+    },
+    "m": {
+      "filename": "M.svg",
+      "x": -2.5,
+      "width": 83,
+      "y": -15
+    },
+    "n": {
+      "filename": "N.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "o": {
+      "filename": "O.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "p": {
+      "filename": "P.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "q": {
+      "filename": "Q.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "r": {
+      "filename": "R.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "s": {
+      "filename": "S.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "t": {
+      "filename": "T.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "u": {
+      "filename": "U.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "v": {
+      "filename": "V.svg",
+      "x": -2.5,
+      "width": 83,
+      "y": -15
+    },
+    "w": {
+      "filename": "W.svg",
+      "x": -2.5,
+      "width": 95.5,
+      "y": -15
+    },
+    "x": {
+      "filename": "X.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "y": {
+      "filename": "Y.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "z": {
+      "filename": "Z.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    },
+    "{": {
+      "filename": "leftbrace.svg",
+      "x": -2.5,
+      "width": 45.5,
+      "y": -15
+    },
+    "|": {
+      "filename": "pipe.svg",
+      "x": -2.5,
+      "width": 20.5,
+      "y": -15
+    },
+    "}": {
+      "filename": "rightbrace.svg",
+      "x": -2.5,
+      "width": 45.5,
+      "y": -15
+    },
+    "~": {
+      "filename": "tilde.svg",
+      "x": -2.5,
+      "width": 70.5,
+      "y": -15
+    }
+  }
+}

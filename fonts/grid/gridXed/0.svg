@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Xed" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #231f20;
+        stroke-miterlimit: 10;
+      }
+    </style>
+  </defs>
+  <g>
+    <line class="cls-1" x1="14" y1="14" x2="24" y2="23.998"/>
+    <line class="cls-1" x1="14" y1="24" x2="24" y2="14"/>
+  </g>
+  <g>
+    <line class="cls-1" x1="26.5" y1="14" x2="36.5" y2="23.998"/>
+    <line class="cls-1" x1="26.5" y1="24" x2="36.5" y2="14"/>
+  </g>
+  <g>
+    <line class="cls-1" x1="39" y1="14" x2="49" y2="23.998"/>
+    <line class="cls-1" x1="39" y1="24" x2="49" y2="14"/>
+  </g>
+  <g>
+    <line class="cls-1" x1="51.5" y1="14" x2="61.5" y2="23.998"/>
+    <line class="cls-1" x1="51.5" y1="24" x2="61.5" y2="14"/>
+  </g>
+  <g>
+    <line class="cls-1" x1="14" y1="26.5" x2="24" y2="36.498"/>
+    <line class="cls-1" x1="14" y1="36.5" x2="24" y2="26.5"/>
+  </g>
+  <g>
+    <line class="cls-1" x1="51.5" y1="26.5" x2="61.5" y2="36.498"/>
+    <line class="cls-1" x1="51.5" y1="36.5" x2="61.5" y2="26.5"/>
+  </g>
+  <g>
+    <line class="cls-1" x1="64" y1="26.5" x2="74" y2="36.498"/>
+    <line class="cls-1" x1="64" y1="36.5" x2="74" y2="26.5"/>
+  </g>
+  <g>
+    <line class="cls-1" x1="1.5" y1="26.5" x2="11.5" y2="36.498"/>
+    <line class="cls-1" x1="1.5" y1="36.5" x2="11.5" y2="26.5"/>
+  </g>
+  <g>
+    <line class="cls-1" x1="14" y1="39" x2="24" y2="48.998"/>
+    <line class="cls-1" x1="14" y1="49" x2="24" y2="39"/>
+  </g>
+  <g>
+    <line class="cls-1" x1="51.5" y1="39" x2="61.5" y2="48.998"/>
+    <line class="cls-1" x1="51.5" y1="49" x2="61.5" y2="39"/>
+  </g>
+  <g>
+    <line class="cls-1" x1="64.528" y1="39.528" x2="73.972" y2="48.97"/>
+    <line class="cls-1" x1="64.528" y1="48.972" x2="73.972" y2="39.528"/>
+  </g>
+  <g>
+    <line class="cls-1" x1="1.5" y1="39" x2="11.5" y2="48.998"/>
+    <line class="cls-1" x1="1.5" y1="49" x2="11.5" y2="39"/>
+  </g>
+  <g>
+    <line class="cls-1" x1="14" y1="51.5" x2="24" y2="61.498"/>
+    <line class="cls-1" x1="14" y1="61.5" x2="24" y2="51.5"/>
+  </g>
+  <g>
+    <line class="cls-1" x1="51.5" y1="51.5" x2="61.5" y2="61.498"/>
+    <line class="cls-1" x1="51.5" y1="61.5" x2="61.5" y2="51.5"/>
+  </g>
+  <g>
+    <line class="cls-1" x1="64" y1="51.5" x2="74" y2="61.498"/>
+    <line class="cls-1" x1="64" y1="61.5" x2="74" y2="51.5"/>
+  </g>
+  <g>
+    <line class="cls-1" x1="1.5" y1="51.5" x2="11.5" y2="61.498"/>
+    <line class="cls-1" x1="1.5" y1="61.5" x2="11.5" y2="51.5"/>
+  </g>
+  <g>
+    <line class="cls-1" x1="14" y1="64" x2="24" y2="73.998"/>
+    <line class="cls-1" x1="14" y1="74" x2="24" y2="64"/>
+  </g>
+  <g>
+    <line class="cls-1" x1="26.5" y1="64" x2="36.5" y2="73.998"/>
+    <line class="cls-1" x1="26.5" y1="74" x2="36.5" y2="64"/>
+  </g>
+  <g>
+    <line class="cls-1" x1="39" y1="64" x2="49" y2="73.998"/>
+    <line class="cls-1" x1="39" y1="74" x2="49" y2="64"/>
+  </g>
+  <g>
+    <line class="cls-1" x1="51.5" y1="64" x2="61.5" y2="73.998"/>
+    <line class="cls-1" x1="51.5" y1="74" x2="61.5" y2="64"/>
+  </g>
+</svg>
